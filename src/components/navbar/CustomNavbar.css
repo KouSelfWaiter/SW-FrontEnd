@@ -1,12 +1,25 @@
-.custom-navbar{
-    height: 5em;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: rgb(253, 232, 247);
-    padding-left: 3%;
-    padding-right: 3%;
+.custom-navbar {
+  height: 5em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 3%;
+  padding-right: 3%;
+  background: linear-gradient(to right, #808080, #411d0a);
+  background-size: 200% auto;
+  animation: gradientAnimation 5s ease infinite;
+}
 
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% center;
+  }
+  50% {
+    background-position: 100% center;
+  }
+  100% {
+    background-position: 0% center;
+  }
 }
 
 .custom-navbar > .custom-nav-logo{
@@ -16,7 +29,7 @@
 
 .custom-navbar > .custom-nav-items > a{
     font-size: 1.2em;
-    color: black;
+    color: white;
     font-weight: 500;
     text-decoration: none;
     margin: 15px;
@@ -37,7 +50,7 @@
     bottom: 0;
     width: 0;
     height: 2px;
-    background: #000000;
+    background: white;
     transition: all 0.45s;
 }
 
