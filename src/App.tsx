@@ -8,7 +8,7 @@ import { HttpServiceClient } from './services/HttpServiceClient';
  async function tikla(){
   let httpServiceClient = new HttpServiceClient()
 
-  let response = await httpServiceClient.getAsync<deneme>({fullEndPoint:"https://jsonplaceholder.typicode.com/todos/1"})
+  let response = await httpServiceClient.deleteAsync<deneme>({controller:"todos"}, 1)
   let a = 4
   debugger
 }
