@@ -8,6 +8,9 @@
   background: linear-gradient(to right, #808080, #411d0a);
   background-size: 200% auto;
   animation: gradientAnimation 5s ease infinite;
+  position: fixed;
+  z-index: 999;
+  width: 100%;
 }
 
 @keyframes gradientAnimation {
