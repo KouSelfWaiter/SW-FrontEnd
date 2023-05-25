@@ -1,0 +1,135 @@
+.product-image {
+  margin-top: 30%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
+/* .image-container {
+  position: relative;
+}
+
+.image-container:hover img {
+  animation: shake 0.5s infinite;
+} */
+
+
+.swing-animation-container {
+  position: relative;
+}
+
+.swing-animation-container:hover {
+  animation: swing 1s ease-in-out infinite;
+}
+
+@keyframes swing {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(5deg); }
+  50% { transform: rotate(-5deg); }
+  75% { transform: rotate(3deg); }
+  100% { transform: rotate(0deg); }
+}
+
+.shake-animation-container {
+  position: relative;
+}
+
+.shake-animation-container:hover span {
+  animation: shake 0.5s infinite;
+}
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-5px); }
+  100% { transform: translateX(0); }
+}
+
+
+.text-type{
+  padding: 20px; /* İçerik etrafına boşluk */
+  color: #fff; /* Metin rengi */
+  font-family: Arial, sans-serif; /* Yazı tipi */
+  font-size: 20px; /* Yazı boyutu */
+  line-height: 1.5; /* Satır yüksekliği */
+  text-align: center; /* Metin hizalama */;
+}
+
+.price {
+  font-size: 50px; /* Fiyatın yazı boyutu */
+  font-weight: bold; /* Fiyatın kalınlığı */
+  color: #ffffff; /* Fiyatın rengi */
+  margin-left: 5%;
+  display: flex;
+  justify-content: flex-start;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.hr-color{
+  color: white;
+}
+
+
+.animation-background{
+  background: linear-gradient(to right, #808080, #463d37);
+  background-size: 200% auto;
+  animation: gradientAnimation 5s ease infinite;
+}
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% center;
+  }
+  50% {
+    background-position: 100% center;
+  }
+  100% {
+    background-position: 0% center;
+  }
+}
+
+
+
+
+
+
+
+.custom-button {
+  --c:  #613a22; /* the color*/
+  
+  box-shadow: 0 0 0 .1em inset var(--c); 
+  --_g: linear-gradient(var(--c) 0 0) no-repeat;
+  background: 
+    var(--_g) calc(var(--_p,0%) - 100%) 0%,
+    var(--_g) calc(200% - var(--_p,0%)) 0%,
+    var(--_g) calc(var(--_p,0%) - 100%) 100%,
+    var(--_g) calc(200% - var(--_p,0%)) 100%;
+  background-size: 50.5% calc(var(--_p,0%)/2 + .5%);
+  outline-offset: .1em;
+  transition: background-size .4s, background-position 0s .4s;
+}
+.custom-button:hover {
+  --_p: 100%;
+  transition: background-position .4s, background-size 0s;
+}
+.custom-button:active {
+  box-shadow: 0 0 9e9q inset #0009; 
+  background-color: var(--c);
+  color: #fff;
+}
+
+.custom-button {
+  font-family: system-ui, sans-serif;
+  font-size: 1.0rem;
+  cursor: pointer;
+  padding: .1em .6em;
+  font-weight: bold;  
+  border: none;
+  color: white;
+  
+}

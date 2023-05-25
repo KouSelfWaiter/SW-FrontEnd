@@ -4,6 +4,7 @@ import './App.css';
 import CustomNavbar from './components/navbar/CustomNavbar';
 import CustomHeader from './components/header/CustomHeader';
 import { HttpServiceClient } from './services/HttpServiceClient';
+import ProductDetailPage from './pages/ProductDetailPage';
 
  async function tikla(){
   let httpServiceClient = new HttpServiceClient()
@@ -25,9 +26,7 @@ function App() {
     <div className="App">
       <CustomNavbar/>
       <CustomHeader/>
-      <br />
-      <br />
-      <button onClick={tikla}>asdsadsa</button>
+      <ProductDetailPage/>
     </div>
   );
 }
