@@ -60,6 +60,69 @@ const CustomProductCard: React.FC = () => {
       name: "Lorem ipsum",
       price: 120,
       icon: "bi bi-cup-hot"
+    },
+    {
+      id: 1,
+      type: "salad",
+      name: "Lorem ipsum",
+      price: 120,
+      icon: "bi bi-cup-hot"
+    },
+    {
+      id: 1,
+      type: "salad",
+      name: "Lorem ipsum",
+      price: 120,
+      icon: "bi bi-cup-hot"
+    },
+    {
+      id: 1,
+      type: "salad",
+      name: "Lorem ipsum",
+      price: 120,
+      icon: "bi bi-cup-hot"
+    },
+    {
+      id: 1,
+      type: "salad",
+      name: "Lorem ipsum",
+      price: 120,
+      icon: "bi bi-cup-hot"
+    },
+    {
+      id: 1,
+      type: "salad",
+      name: "Lorem ipsum",
+      price: 120,
+      icon: "bi bi-cup-hot"
+    },
+    {
+      id: 1,
+      type: "salad",
+      name: "Lorem ipsum",
+      price: 120,
+      icon: "bi bi-cup-hot"
+    },
+    {
+      id: 1,
+      type: "salad",
+      name: "Lorem ipsum",
+      price: 120,
+      icon: "bi bi-cup-hot"
+    },
+    {
+      id: 1,
+      type: "salad",
+      name: "Lorem ipsum",
+      price: 120,
+      icon: "bi bi-cup-hot"
+    },
+    {
+      id: 1,
+      type: "salad",
+      name: "Lorem ipsum",
+      price: 120,
+      icon: "bi bi-cup-hot"
     }
   ];
 
@@ -127,9 +190,9 @@ const CustomProductCard: React.FC = () => {
             </div>
           </div>
 
-          <div className={`food-item-wrap ${activeFoodType}`}>
+          <div className={`row food-item-wrap ${activeFoodType}`}>
             {foodItems.map((item) => (
-              <div key={item.id} className={`food-item ${item.type}-type`}>
+              <div key={item.id} className={`col-lg-3 col-md-4 col-sm-6 col-12 food-item ${item.type}-type`}>
                 <div className="item-wrap bottom-up play-on-scroll">
                   <div className="item-img">
                     <div className="img-holder bg-img">
