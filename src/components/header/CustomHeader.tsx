@@ -11,7 +11,7 @@ function CustomHeader() {
       
     </div>
       <div >
-        <img className=""  src={imgHeader} alt={"alt"}    style={{height:"720px", objectPosition:"center",width:"100vw"}}/>
+        <img  src={imgHeader} alt={"alt"}  style={{width: "100%", height:"auto"}}   />
         <div className="carousel-caption d-none d-md-block " >
           <h5>Harika Coffee</h5>
           <p>blah bla bla bla</p>
