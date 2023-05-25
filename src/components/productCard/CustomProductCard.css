@@ -108,7 +108,13 @@ html {
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
+    position: relative;
 }
+
+.bg-img img {
+    width: 100%;
+    height: auto;
+  }
 
 .bg-img-fixed {
     background-attachment: fixed;
@@ -250,7 +256,7 @@ section {
 }
 
 .item-img {
-    height: 60%;
+    height: 45%;
     position: relative;
     overflow: hidden;
     border-radius: 2rem;
@@ -274,7 +280,7 @@ section {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 3rem;
+    margin-top: 1rem;
     padding: 0 1rem;
 }
 
@@ -554,7 +560,7 @@ section {
         font-size: 2rem;
     }
     .about {
-         background-image: url(header.jpg); 
+         background-image: url(turk-kahvesi.png); 
         background-attachment: fixed;
     }
 
@@ -688,3 +694,22 @@ section {
         display: none;
     }
 }
+
+
+.animation-background{
+    background: linear-gradient(to right, #808080, #463d37);
+    background-size: 200% auto;
+    animation: gradientAnimation 5s ease infinite;
+  }
+  
+  @keyframes gradientAnimation {
+    0% {
+      background-position: 0% center;
+    }
+    50% {
+      background-position: 100% center;
+    }
+    100% {
+      background-position: 0% center;
+    }
+  }

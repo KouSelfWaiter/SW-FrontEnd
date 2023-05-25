@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import "./CustomProductCard.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
-import imgHeader from './header.jpg';
+import imgHeader from './turk-kahvesi.png';
 
 const CustomProductCard: React.FC = () => {
   const [activeFoodType, setActiveFoodType] = useState("all");
@@ -128,7 +128,7 @@ const CustomProductCard: React.FC = () => {
 
   return (
     <section
-      className="align-items-center bg-img bg-img-fixed"
+      className="align-items-center bg-img bg-img-fixed animation-background"
       id="food-menu-section"
       // style={{ backgroundImage: `url(${backgroundImage})` }}
     >
@@ -196,11 +196,9 @@ const CustomProductCard: React.FC = () => {
                 <div className="item-wrap bottom-up play-on-scroll">
                   <div className="item-img">
                     <div className="img-holder bg-img">
-                      <img
-                        className="h-full w-full"
+                      <img                       
                         src={imgHeader}
-                        alt="alt"
-                        style={{ height: "240px", objectFit: "fill" }}
+                        alt="alt"                     
                       />
                     </div>
                   </div>
