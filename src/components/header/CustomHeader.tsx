@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 // import "./CustomNavbar.css"
-import imgHeader from './header.jpg'
+import imgHeader from './header.jpg';
+
 function CustomHeader() {
       return  (
     <div id="carouselExampleDark" className="carousel carousel-white slide" data-bs-ride="carousel">
@@ -9,15 +10,13 @@ function CustomHeader() {
       {/* <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" className="active" aria-current="true" aria-label="Slide 1"></button> */}
       
     </div>
-    <div className="carousel-inner">
-      <div className="carousel-item active" data-bs-interval="10000">
-        <img className="h-full w-full object-cover"  src={imgHeader} alt={"alt"} img-fill img-priority  style={{ height:"716px"}}/>
+      <div >
+        <img className=""  src={imgHeader} alt={"alt"}    style={{height:"720px", objectPosition:"center",width:"100vw"}}/>
         <div className="carousel-caption d-none d-md-block " >
           <h5>Harika Coffee</h5>
           <p>blah bla bla bla</p>
        
         </div>
-      </div>
 
     </div>
     {/* <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
