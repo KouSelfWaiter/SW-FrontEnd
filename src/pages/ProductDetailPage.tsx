@@ -8,13 +8,13 @@ function ProductDetailPage() {
       <div className='container' >
         <div className='row'>
 
-          <div className='col-4'>
+          <div className='col-md-4'>
             <div className='swing-animation-container'>
               <img src={productImage} alt="react logo" className='product-image' />
             </div>
           </div>
 
-          <div className='col-8'>
+          <div className='col-md-8'>
             <h1 className='display-3' style={{color:"#613a22"}}>Türk Kahvesi</h1>
 
             <hr className='hr-color' />
