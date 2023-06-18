@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import "./CustomProductCard.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import imgHeader from './turk-kahvesi.png';
+import {Link} from "react-router-dom"
 
 const CustomProductCard: React.FC = () => {
   const [activeFoodType, setActiveFoodType] = useState("all");
@@ -55,7 +56,35 @@ const CustomProductCard: React.FC = () => {
 
   const foodItems = [
     {
-      id: 1,
+      id: "1",
+      type: "salad",
+      name: "Lorem ipsum",
+      price: 120,
+      icon: "bi bi-cup-hot"
+    },
+    {
+      id: "1",
+      type: "salad",
+      name: "Lorem ipsum",
+      price: 120,
+      icon: "bi bi-cup-hot"
+    },
+    {
+      id: "1",
+      type: "salad",
+      name: "Lorem ipsum",
+      price: 120,
+      icon: "bi bi-cup-hot"
+    },
+    {
+      id: "1",
+      type: "salad",
+      name: "Lorem ipsum",
+      price: 120,
+      icon: "bi bi-cup-hot"
+    },
+    {
+      id: "1",
       type: "salad",
       name: "Lorem ipsum",
       price: 120,
@@ -69,56 +98,28 @@ const CustomProductCard: React.FC = () => {
       icon: "bi bi-cup-hot"
     },
     {
-      id: 1,
+      id:"1",
       type: "salad",
       name: "Lorem ipsum",
       price: 120,
       icon: "bi bi-cup-hot"
     },
     {
-      id: 1,
+      id: "1",
       type: "salad",
       name: "Lorem ipsum",
       price: 120,
       icon: "bi bi-cup-hot"
     },
     {
-      id: 1,
+      id: "1",
       type: "salad",
       name: "Lorem ipsum",
       price: 120,
       icon: "bi bi-cup-hot"
     },
     {
-      id: 1,
-      type: "salad",
-      name: "Lorem ipsum",
-      price: 120,
-      icon: "bi bi-cup-hot"
-    },
-    {
-      id: 1,
-      type: "salad",
-      name: "Lorem ipsum",
-      price: 120,
-      icon: "bi bi-cup-hot"
-    },
-    {
-      id: 1,
-      type: "salad",
-      name: "Lorem ipsum",
-      price: 120,
-      icon: "bi bi-cup-hot"
-    },
-    {
-      id: 1,
-      type: "salad",
-      name: "Lorem ipsum",
-      price: 120,
-      icon: "bi bi-cup-hot"
-    },
-    {
-      id: 1,
+      id: "1",
       type: "salad",
       name: "Lorem ipsum",
       price: 120,
@@ -192,7 +193,9 @@ const CustomProductCard: React.FC = () => {
 
           <div className={`row food-item-wrap ${activeFoodType}`}>
             {foodItems.map((item) => (
+             
               <div key={item.id} className={`col-lg-3 col-md-4 col-sm-6 col-12 food-item ${item.type}-type`}>
+                
                 <div className="item-wrap bottom-up play-on-scroll">
                   <div className="item-img">
                     <div className="img-holder bg-img">
@@ -204,7 +207,7 @@ const CustomProductCard: React.FC = () => {
                   </div>
                   <div className="item-info">
                     <div>
-                      <h3>{item.name}</h3>
+                    <Link to={`/products/${item.id}`} ><h3>{item.name}</h3>     </Link>
                       <span>{item.price}$</span>
                     </div>
                     <div className="cart-btn">
@@ -212,7 +215,9 @@ const CustomProductCard: React.FC = () => {
                     </div>
                   </div>
                 </div>
+              
               </div>
+         
             ))}
           </div>
         </div>

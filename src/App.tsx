@@ -7,6 +7,7 @@ import  CustomProductCard from './components/productCard/CustomProductCard';
 
 import { HttpServiceClient } from './services/HttpServiceClient';
 import ProductDetailPage from './pages/ProductDetailPage';
+import Home from './pages/home/HomePage';
 
  async function tikla(){
   let httpServiceClient = new HttpServiceClient()
@@ -27,9 +28,6 @@ function App() {
   return (
     <div className="App">
       <CustomNavbar/>
-      <CustomHeader/>
-      <CustomProductCard/>
-      <ProductDetailPage/>
     </div>
   );
 }
