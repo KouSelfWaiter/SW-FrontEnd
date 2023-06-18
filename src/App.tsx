@@ -29,9 +29,7 @@ function App() {
   return (
     <div className="App">
       <CustomNavbar/>
-      <CustomHeader/>
-      <CustomProductCard/>
-      <ProductDetailPage/>
+   
     </div>
   );
 }
