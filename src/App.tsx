@@ -27,9 +27,8 @@ interface deneme{
 }
 function App() {
   return (
-    <div className="App">
-      <CustomNavbar/>
-   
+    <div>
+      <CustomNavbar/>  
     </div>
   );
 }

@@ -1,0 +1,13 @@
+.customLink {
+    color: #000000;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  
+.customLink:hover {
+    color: #ffffff;
+  }
+
+.active{
+    color: #f7f7f7;
+}

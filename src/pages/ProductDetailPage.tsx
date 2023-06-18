@@ -25,7 +25,7 @@ function ProductDetailPage() {
           </div>
 
           <div className='col-md-8'>
-            <h1>asdasd</h1>
+
             
             <h1 className='display-3' style={{color:"#613a22"}}>Türk Kahvesi ID: {id}</h1>
 

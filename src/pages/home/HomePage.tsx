@@ -8,7 +8,6 @@ const Home: React.FC = () => {
     <div>
       <CustomHeader/>
       <CustomProductCard/>
-      <ProductDetailPage/>
     </div>
   );
 };

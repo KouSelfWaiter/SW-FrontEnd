@@ -3,6 +3,7 @@ import "./CustomProductCard.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import imgHeader from './turk-kahvesi.png';
 import {Link} from "react-router-dom"
+import CustomLink from '../customLink/CustomLink';
 
 const CustomProductCard: React.FC = () => {
   const [activeFoodType, setActiveFoodType] = useState("all");
@@ -207,7 +208,7 @@ const CustomProductCard: React.FC = () => {
                   </div>
                   <div className="item-info">
                     <div>
-                    <Link to={`/products/${item.id}`} ><h3>{item.name}</h3>     </Link>
+                    <CustomLink to={`/products/${item.id}`} ><h3>{item.name}</h3>     </CustomLink>
                       <span>{item.price}$</span>
                     </div>
                     <div className="cart-btn">
