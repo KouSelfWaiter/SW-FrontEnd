@@ -1,5 +1,6 @@
-import React, { useState, useEffect, CSSProperties } from 'react'
-import ClipLoader from "react-spinners/ClipLoader";
+import React, { useState, useEffect } from 'react'
+import SyncLoader from "react-spinners/SyncLoader";
+import "./CustomSpinner.css"
 
 
 function CustomSpinner() {
@@ -16,18 +17,22 @@ function CustomSpinner() {
 
     return (
         <>
-        {
-            loading?
-        <ClipLoader
+            {
+                loading ?
+                    <div className='spinner-container'>
+                        <SyncLoader
 
-            loading={loading}
-            color='#663300'
-            size={150}
-     
-        />
-        :
-        <h1>Selam</h1>
-        }
+                            loading={loading}
+                            color='#ffffff'
+                            size={50}
+
+                        />
+                    </div>
+                    :
+                    
+                    <></>
+                    
+            }
         </>
     )
 }
