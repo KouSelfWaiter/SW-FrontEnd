@@ -26,7 +26,7 @@ function CustomHeader() {
     <Carousel.Item>
       <img
         className="d-block w-100"
-        src={imgHeader}
+        src={imgHeader2}
         alt="Second slide"
         
       />
