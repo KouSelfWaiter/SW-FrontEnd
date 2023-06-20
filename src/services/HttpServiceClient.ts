@@ -5,7 +5,7 @@ import axios, { AxiosResponse } from "axios"
 export class HttpServiceClient{
 
     //baseUrl:string = "https://localhost:5050/"
-    baseUrl:string = "https://jsonplaceholder.typicode.com"
+    baseUrl:string = "https://localhost:7272/api"
 
     private url (requestParameters: Partial<RequestParameters>):string{
         return `${requestParameters.baseUrl ? requestParameters.baseUrl : this.baseUrl}/${requestParameters.

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import "./CustomNavbar.css"
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { Route, Routes } from 'react-router-dom';
@@ -13,8 +13,24 @@ import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import ProductService from '../../services/models/products/ProductService';
+import GetAllProductsResponse from '../../contracts/products/GetAllProductsResponse';
 
 function CustomNavbar() {
+
+
+  useEffect(()=>{
+
+    const fetchData = async()=>{
+      const productService:ProductService = new ProductService()
+      let data:GetAllProductsResponse = await productService.getAllProducts({page:0, size:5})
+      console.log(data)
+    }
+
+    fetchData()
+
+  }, [])
+
 
   return (
     <div>
