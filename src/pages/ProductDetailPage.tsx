@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './ProductDetailPage.css'
 import 'bootstrap/dist/css/bootstrap.css';
 import productImage from "./turk-kahvesi.png"
 import { useParams } from 'react-router-dom';
+import GetAllProductsResponse from '../contracts/products/GetAllProductsResponse';
 
 interface RouteParams {
   id: string;
@@ -11,6 +12,7 @@ interface RouteParams {
 function ProductDetailPage() {
 
   const { id } = useParams<RouteParams>();
+  const [products, setProducts] = useState<GetAllProductsResponse>({})  
 
   return (
  

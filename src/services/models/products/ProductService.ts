@@ -9,14 +9,13 @@ export default class ProductService{
 
     async getAllProducts(getAllProductsRequest: Partial<GetAllProductsRequest>): Promise<GetAllProductsResponse>{
         
-        
-
-        const promisData:Promise<GetAllProductsResponse> = this.httpService.getAsync<GetAllProductsResponse>({
+        const promisData:GetAllProductsResponse = await this.httpService.getAsync<GetAllProductsResponse>({
              controller:"Products",
-             queryString:`page=${getAllProductsRequest.page}&size=${getAllProductsRequest.size}`
+             queryString:`page=${getAllProductsRequest.page}&size=${getAllProductsRequest.size}`,   
+                 
         })
-        
-        return await promisData
+
+        return  promisData
     }
 
 }

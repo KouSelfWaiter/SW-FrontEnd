@@ -2,11 +2,26 @@ import React, { useEffect, useState } from 'react';
 import "./CustomProductCard.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import imgHeader from './turk-kahvesi.png';
-import {Link} from "react-router-dom"
+import { Link } from "react-router-dom"
 import CustomLink from '../customLink/CustomLink';
+import ProductService from '../../services/models/products/ProductService';
+import GetAllProductsResponse from '../../contracts/products/GetAllProductsResponse';
 
 const CustomProductCard: React.FC = () => {
   const [activeFoodType, setActiveFoodType] = useState("all");
+
+  const [productResponse, setProductResponse] = useState<GetAllProductsResponse>({})
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const productService: ProductService = new ProductService()
+      let data: GetAllProductsResponse = await productService.getAllProducts({ page: 0, size: 5 }) 
+      setProductResponse(data)
+    }
+
+    fetchData()
+  }, [])
 
   useEffect(() => {
     const scroll =
@@ -55,84 +70,13 @@ const CustomProductCard: React.FC = () => {
     setActiveFoodType(e.currentTarget.getAttribute("data-food-type") || "all");
   };
 
-  const foodItems = [
-    {
-      id: "1",
-      type: "salad",
-      name: "Lorem ipsum",
-      price: 120,
-      icon: "bi bi-cup-hot"
-    },
-    {
-      id: "1",
-      type: "salad",
-      name: "Lorem ipsum",
-      price: 120,
-      icon: "bi bi-cup-hot"
-    },
-    {
-      id: "1",
-      type: "salad",
-      name: "Lorem ipsum",
-      price: 120,
-      icon: "bi bi-cup-hot"
-    },
-    {
-      id: "1",
-      type: "salad",
-      name: "Lorem ipsum",
-      price: 120,
-      icon: "bi bi-cup-hot"
-    },
-    {
-      id: "1",
-      type: "salad",
-      name: "Lorem ipsum",
-      price: 120,
-      icon: "bi bi-cup-hot"
-    },
-    {
-      id: 1,
-      type: "salad",
-      name: "Lorem ipsum",
-      price: 120,
-      icon: "bi bi-cup-hot"
-    },
-    {
-      id:"1",
-      type: "salad",
-      name: "Lorem ipsum",
-      price: 120,
-      icon: "bi bi-cup-hot"
-    },
-    {
-      id: "1",
-      type: "salad",
-      name: "Lorem ipsum",
-      price: 120,
-      icon: "bi bi-cup-hot"
-    },
-    {
-      id: "1",
-      type: "salad",
-      name: "Lorem ipsum",
-      price: 120,
-      icon: "bi bi-cup-hot"
-    },
-    {
-      id: "1",
-      type: "salad",
-      name: "Lorem ipsum",
-      price: 120,
-      icon: "bi bi-cup-hot"
-    }
-  ];
+  
 
   return (
     <section
       className="align-items-center bg-img bg-img-fixed animation-background"
       id="food-menu-section"
-      // style={{ backgroundImage: `url(${backgroundImage})` }}
+    // style={{ backgroundImage: `url(${backgroundImage})` }}
     >
       <div className="container">
         <div className="food-menu">
@@ -193,32 +137,32 @@ const CustomProductCard: React.FC = () => {
           </div>
 
           <div className={`row food-item-wrap ${activeFoodType}`}>
-            {foodItems.map((item) => (
-             
-              <div key={item.id} className={`col-lg-3 col-md-4 col-sm-6 col-12 food-item ${item.type}-type`}>
-                
+            {productResponse.products?.map((item) => (
+
+              <div key={item.id} className={`col-lg-3 col-md-4 col-sm-6 col-12 food-item ${"salad"}-type`}>
+
                 <div className="item-wrap bottom-up play-on-scroll">
                   <div className="item-img">
                     <div className="img-holder bg-img">
-                      <img                       
+                      <img
                         src={imgHeader}
-                        alt="alt"                     
+                        alt="alt"
                       />
                     </div>
                   </div>
                   <div className="item-info">
                     <div>
-                    <CustomLink to={`/products/${item.id}`} ><h3>{item.name}</h3>     </CustomLink>
+                      <CustomLink to={`/products/${item.id}`} ><h3>{item.translation ? item.translation[0].name : ""}</h3> </CustomLink>
                       <span>{item.price}$</span>
                     </div>
                     <div className="cart-btn">
-                      <i className={item.icon} style={{ fontSize: '35px' }}></i>
+                      <i className={"bi bi-cup-hot"} style={{ fontSize: '35px' }}></i>
                     </div>
                   </div>
                 </div>
-              
+
               </div>
-         
+
             ))}
           </div>
         </div>

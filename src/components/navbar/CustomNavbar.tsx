@@ -18,20 +18,6 @@ import GetAllProductsResponse from '../../contracts/products/GetAllProductsRespo
 
 function CustomNavbar() {
 
-
-  useEffect(()=>{
-
-    const fetchData = async()=>{
-      const productService:ProductService = new ProductService()
-      let data:GetAllProductsResponse = await productService.getAllProducts({page:0, size:5})
-      console.log(data)
-    }
-
-    fetchData()
-
-  }, [])
-
-
   return (
     <div>
 
