@@ -24,8 +24,6 @@ function ProductDetailPage() {
         id: id
       })
       setProductResponse(data)
-      console.log(data)
-      console.log(data.product?.productFiles ? data.product?.productFiles[0].path : "yok")
     }
 
     fetchData()
@@ -40,7 +38,13 @@ function ProductDetailPage() {
 
           <div className='col-md-4'>
             <div className='swing-animation-container'>
-              <img src={`${productResponse.product?.productFiles ? (API_ROOT_PATH+productResponse.product?.productFiles[0].path) : DEFAULT_IMAGE_PATH }`} alt="react logo" className='product-image' />
+
+              {
+                productResponse.product?.productFiles
+                  ? <img src={productResponse.product.productFiles?.length > 0 ? (API_ROOT_PATH + productResponse.product.productFiles[0].path) : DEFAULT_IMAGE_PATH} alt="react logo" className='product-image' />
+                  : <img src={DEFAULT_IMAGE_PATH} alt="react logo" className='product-image' />
+              }
+
             </div>
           </div>
 

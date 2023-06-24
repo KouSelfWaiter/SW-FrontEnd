@@ -6,6 +6,9 @@ import { Link } from "react-router-dom"
 import CustomLink from '../customLink/CustomLink';
 import ProductService from '../../services/models/products/ProductService';
 import GetAllProductsResponse from '../../contracts/products/getAllProducts/GetAllProductsResponse';
+import { API_ROOT_PATH, DEFAULT_IMAGE_PATH } from '../../constDatas/constData';
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
 
 const CustomProductCard: React.FC = () => {
   const [activeFoodType, setActiveFoodType] = useState("all");
@@ -16,7 +19,7 @@ const CustomProductCard: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       const productService: ProductService = new ProductService()
-      let data: GetAllProductsResponse = await productService.getAllProducts({ page: 0, size: 5 }) 
+      let data: GetAllProductsResponse = await productService.getAllProducts({ page: 0, size: 5 })
       setProductResponse(data)
     }
 
@@ -70,7 +73,7 @@ const CustomProductCard: React.FC = () => {
     setActiveFoodType(e.currentTarget.getAttribute("data-food-type") || "all");
   };
 
-  
+
 
   return (
     <section
@@ -136,7 +139,7 @@ const CustomProductCard: React.FC = () => {
             </div>
           </div>
 
-          <div className={`row food-item-wrap ${activeFoodType}`}>
+          {/* <div className={`row food-item-wrap ${activeFoodType}`}>
             {productResponse.products?.map((item) => (
 
               <div key={item.id} className={`col-lg-3 col-md-4 col-sm-6 col-12 food-item ${"salad"}-type`}>
@@ -144,10 +147,16 @@ const CustomProductCard: React.FC = () => {
                 <div className="item-wrap bottom-up play-on-scroll">
                   <div className="item-img">
                     <div className="img-holder bg-img">
-                      <img
-                        src={imgHeader}
+                      {
+                        item.productFiles ? <img
+                        src={item.productFiles?.length > 0 ? (API_ROOT_PATH+item.productFiles[0].path) : DEFAULT_IMAGE_PATH}
                         alt="alt"
-                      />
+                       style={{width: "100px", height:"100px"}}/> : <img
+                      src={DEFAULT_IMAGE_PATH}
+                      alt="alt"
+                    />
+                      }
+                      
                     </div>
                   </div>
                   <div className="item-info">
@@ -164,7 +173,35 @@ const CustomProductCard: React.FC = () => {
               </div>
 
             ))}
+          </div> */}
+
+          <br />
+
+          <div className='row'>
+          {productResponse.products?.map((item) => (
+            <div key={item.id} className='col-lg-3 col-md-4 col-sm-6 col-12'>
+            <Card  style={{ width: '14rem' }}>
+              {
+                item.productFiles
+                  ? <Card.Img variant="top" src={item.productFiles?.length > 0 ? (API_ROOT_PATH + item.productFiles[0].path) : DEFAULT_IMAGE_PATH} />
+                  : <Card.Img variant="top" src={DEFAULT_IMAGE_PATH} />
+              }
+              <Card.Body style={{backgroundColor: "#808080"}}>
+                {/* <Card.Title>{item.translation ? item.translation[0].name : ""}</Card.Title> */}
+                <Card.Text>
+                  <CustomLink to={`/products/${item.id}`} ><h3>{item.translation ? item.translation[0].name : ""}</h3> </CustomLink>
+                  <span>{item.price}$</span>
+                </Card.Text>
+              </Card.Body>
+            </Card>
+            </div>
+          ))}
           </div>
+
+
+
+
+
         </div>
       </div>
     </section>
