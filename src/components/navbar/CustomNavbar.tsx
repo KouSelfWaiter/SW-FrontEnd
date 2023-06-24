@@ -5,7 +5,7 @@ import { Route, Routes } from 'react-router-dom';
 import CustomLink from '../customLink/CustomLink';
 import CustomProductCard from '../productCard/CustomProductCard';
 import Home from '../../pages/home/HomePage';
-import ProductDetailPage from '../../pages/ProductDetailPage';
+import ProductDetailPage from '../../pages/productDetail/ProductDetailPage';
 
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
@@ -14,7 +14,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import ProductService from '../../services/models/products/ProductService';
-import GetAllProductsResponse from '../../contracts/products/GetAllProductsResponse';
+import GetAllProductsResponse from '../../contracts/products/getAllProducts/GetAllProductsResponse';
 
 function CustomNavbar() {
 

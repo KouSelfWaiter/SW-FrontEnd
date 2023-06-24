@@ -5,7 +5,7 @@ import imgHeader from './turk-kahvesi.png';
 import { Link } from "react-router-dom"
 import CustomLink from '../customLink/CustomLink';
 import ProductService from '../../services/models/products/ProductService';
-import GetAllProductsResponse from '../../contracts/products/GetAllProductsResponse';
+import GetAllProductsResponse from '../../contracts/products/getAllProducts/GetAllProductsResponse';
 
 const CustomProductCard: React.FC = () => {
   const [activeFoodType, setActiveFoodType] = useState("all");

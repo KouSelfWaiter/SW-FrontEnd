@@ -7,6 +7,6 @@ export default class ProductDTO{
     price?:number
     isActive?:boolean
     translation?:ProductTranslationDTO []
-    productFile?:ProductFileDTO []
+    productFiles?:ProductFileDTO []
     
 }

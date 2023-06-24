@@ -12,7 +12,7 @@ export class HttpServiceClient{
           controller}${requestParameters.action ? `/${requestParameters.action}` : ""}`
       }
 
-    async getAsync<T>(requestParameters: Partial<RequestParameters>, id?:number):Promise<T>{
+    async getAsync<T>(requestParameters: Partial<RequestParameters>, id?:string):Promise<T>{
 
         let url:string = ""
 
@@ -54,7 +54,7 @@ export class HttpServiceClient{
 
     }
 
-    async deleteAsync<T>(requestParameters: Partial<RequestParameters>, id:number):Promise<T>{
+    async deleteAsync<T>(requestParameters: Partial<RequestParameters>, id:string):Promise<T>{
 
       let url:string = ""
       if(requestParameters.fullEndPoint)

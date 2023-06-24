@@ -1,4 +1,4 @@
-import ProductDTO from "./ProductDTO";
+import ProductDTO from "../ProductDTO";
 
 export default class GetAllProductsResponse{
 
