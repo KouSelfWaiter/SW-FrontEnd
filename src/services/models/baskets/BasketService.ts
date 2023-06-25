@@ -1,4 +1,5 @@
 import GetActiveBasketIdResponse from "../../../contracts/baskets/getActiveBasketId/GetActiveBasketIdResponse"
+import GetBasketItemsResponse from "../../../contracts/baskets/getBasketItems/GetBasketItemsResponse"
 import { HttpServiceClient } from "../../HttpServiceClient"
 
 export default class BasketService{
@@ -13,5 +14,13 @@ export default class BasketService{
         })
 
         return  promisData
+    }
+
+    async getBasketItems(): Promise<GetBasketItemsResponse>{
+        const promiseData:GetBasketItemsResponse = await this.httpService.getAsync<GetBasketItemsResponse>({
+            controller:"Baskets",         
+        })
+
+        return promiseData
     }
 }

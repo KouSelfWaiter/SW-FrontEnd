@@ -24,7 +24,11 @@ function CustomNavbar() {
   const [activeBasketId, setactiveBasketId] = useState<string>("")
 
   useEffect(()=>{
-
+    // simdilik basketId gidiyor ama 
+    // kurulan mimari tableNo olacak
+    // su an zaten deafaul 1 numara var
+    // mimari uygun basketId yi atıyor 
+    // Kafa karismasın !!
     const fetchData = async ()=>{
       const basketService:BasketService = new BasketService()
       let data: GetActiveBasketIdResponse = await basketService.getActiveBasketId()
