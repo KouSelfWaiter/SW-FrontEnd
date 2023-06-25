@@ -15,8 +15,27 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import ProductService from '../../services/models/products/ProductService';
 import GetAllProductsResponse from '../../contracts/products/getAllProducts/GetAllProductsResponse';
+import BasketPage from '../../pages/basket/BasketPage';
+import BasketService from '../../services/models/baskets/BasketService';
+import GetActiveBasketIdResponse from '../../contracts/baskets/getActiveBasketId/GetActiveBasketIdResponse';
 
 function CustomNavbar() {
+
+  const [activeBasketId, setactiveBasketId] = useState<string>("")
+
+  useEffect(()=>{
+
+    const fetchData = async ()=>{
+      const basketService:BasketService = new BasketService()
+      let data: GetActiveBasketIdResponse = await basketService.getActiveBasketId()
+      
+      if(data.id!=null)
+        setactiveBasketId(data.id)
+    }
+
+    fetchData()
+
+  }, [])
 
   return (
     <div>
@@ -51,6 +70,11 @@ function CustomNavbar() {
               </Nav.Link>
 
             </Nav>
+            
+            <CustomLink to={`/basket/${activeBasketId}`}>
+            <i className="bi bi-cart-check custom-icon"></i>
+            </CustomLink>
+
             <Form className="d-flex">
               <Form.Control
                 type="search"
@@ -69,6 +93,7 @@ function CustomNavbar() {
         <Route path='/food-menu-section' element={<CustomProductCard />} />
         <Route path="/products/:id" element={<ProductDetailPage />} />
         <Route path='/' element={<Home />} />
+        <Route path='/basket/:id' element={<BasketPage />} />
       </Routes>
     </div>
   )
