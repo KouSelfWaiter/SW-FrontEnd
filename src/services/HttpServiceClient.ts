@@ -41,7 +41,6 @@ export class HttpServiceClient{
     }
 
     async putAsync<T>(requestParameters: Partial<RequestParameters>,body:Partial<T>):Promise<T>{
-
       let url:string = ""
       if(requestParameters.fullEndPoint)
         url = requestParameters.fullEndPoint

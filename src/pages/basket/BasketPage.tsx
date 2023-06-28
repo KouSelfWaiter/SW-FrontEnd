@@ -9,6 +9,8 @@ import "./BasketPage.css"
 import { API_ROOT_PATH, DEFAULT_IMAGE_PATH } from '../../constDatas/constData';
 import Button from 'react-bootstrap/Button'; 
 import $ from 'jquery'
+import UpdateBasketItemRequest from '../../contracts/baskets/updateBasketItem/UpdateBasketItemRequest';
+import GetBasketItemDTO from '../../contracts/baskets/GetBasketItemDTO';
 
 interface RouteParams {
   id: string;
@@ -41,9 +43,25 @@ function BasketPage() {
     $(`#item-${id}`).fadeOut(500, () => {
       setBasketItems({...basketItems, getBasketItemDTOs:updatedData})
     });
-  
-
+    
   }
+
+  const updateBasketItem = async (updateBasketItemRequest:Partial<UpdateBasketItemRequest>) => {
+    debugger
+    if(updateBasketItemRequest.quantity != null && updateBasketItemRequest.quantity <= 0){
+       await deleteBasketItem(updateBasketItemRequest.basketItemId as string)
+       return 
+    }
+
+    await basketService.updateBasketItem(updateBasketItemRequest)
+
+    const updatedData = basketItems.getBasketItemDTOs?.map(
+      item => item.id === updateBasketItemRequest.basketItemId
+      ? {...item, quantity :  updateBasketItemRequest.quantity} as GetBasketItemDTO
+      : item
+    );
+    setBasketItems({...basketItems, getBasketItemDTOs:updatedData as GetBasketItemDTO []})
+  } 
 
   return (
     <div>
@@ -69,9 +87,13 @@ function BasketPage() {
                     {item.productDTO.translation ? item.productDTO.translation[0].description : "Self Waiter Sunar"}
                   </div>
                   <i className="bi bi-x-circle-fill custom-icon" onClick={ ()=>deleteBasketItem(item.id as string) }></i>
+                  <i className="bi bi-arrow-up-circle custom-icon" onClick={ ()=>updateBasketItem({basketItemId: item.id, quantity: (item.quantity ? (item.quantity+1) : 0)}) }></i>
+                  <i className="bi bi-arrow-down-circle custom-icon" onClick={ ()=>updateBasketItem({basketItemId: item.id, quantity: (item.quantity ? (item.quantity-1) : 0)}) }></i>
+
                   <Badge bg="primary" pill>
                     {item.quantity}
                   </Badge>
+
                 </ListGroup.Item>
                 : <></>}
             </div>
