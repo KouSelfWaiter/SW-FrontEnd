@@ -8,7 +8,7 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import "./BasketPage.css"
 import { API_ROOT_PATH, DEFAULT_IMAGE_PATH } from '../../constDatas/constData';
 import Button from 'react-bootstrap/Button'; 
-
+import $ from 'jquery'
 
 interface RouteParams {
   id: string;
@@ -16,7 +16,7 @@ interface RouteParams {
 }
 
 function BasketPage() {
-
+  const basketService: BasketService = new BasketService()
   const { id } = useParams<RouteParams>();
   const [basketItems, setBasketItems] = useState<GetBasketItemsResponse>({})
 
@@ -24,7 +24,6 @@ function BasketPage() {
   useEffect(() => {
 
     const fetchData = async () => {
-      const basketService: BasketService = new BasketService()
       let data: GetBasketItemsResponse = await basketService.getBasketItems()
       setBasketItems(data)
 
@@ -35,12 +34,23 @@ function BasketPage() {
 
   }, [])
 
+  const deleteBasketItem = async (id:string)=>{
+    await basketService.deleteBasketItem({id:id})
+
+    const updatedData = basketItems.getBasketItemDTOs?.filter(item => item.id!==id)
+    $(`#item-${id}`).fadeOut(500, () => {
+      setBasketItems({...basketItems, getBasketItemDTOs:updatedData})
+    });
+  
+
+  }
+
   return (
     <div>
       <ListGroup as="ol" numbered>
         {
           basketItems.getBasketItemDTOs?.map(item => (
-            <div key={item.id}>
+            <div key={item.id} id={`item-${item.id}`}>
               {item.productDTO
                 ? <ListGroup.Item
                   as="li"
@@ -58,7 +68,7 @@ function BasketPage() {
                     <div className="fw-bold">{item.productDTO.translation ? item.productDTO.translation[0].name : "Self Waiter Sunar"}</div>
                     {item.productDTO.translation ? item.productDTO.translation[0].description : "Self Waiter Sunar"}
                   </div>
-                  <i className="bi bi-x-circle-fill custom-icon"></i>
+                  <i className="bi bi-x-circle-fill custom-icon" onClick={ ()=>deleteBasketItem(item.id as string) }></i>
                   <Badge bg="primary" pill>
                     {item.quantity}
                   </Badge>
