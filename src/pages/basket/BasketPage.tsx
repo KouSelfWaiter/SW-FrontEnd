@@ -11,6 +11,7 @@ import Button from 'react-bootstrap/Button';
 import $ from 'jquery'
 import UpdateBasketItemRequest from '../../contracts/baskets/updateBasketItem/UpdateBasketItemRequest';
 import GetBasketItemDTO from '../../contracts/baskets/GetBasketItemDTO';
+import BasketItemNotFoundAlert from '../../components/alert/basketItemsAlert/basketItemNotFoundAlert';
 
 interface RouteParams {
   id: string;
@@ -65,43 +66,52 @@ function BasketPage() {
 
   return (
     <div>
-      <ListGroup as="ol" numbered>
-        {
-          basketItems.getBasketItemDTOs?.map(item => (
-            <div key={item.id} id={`item-${item.id}`}>
-              {item.productDTO
-                ? <ListGroup.Item
-                  as="li"
-                  className="d-flex justify-content-between align-items-start"
-                >
-                  {
-                    item.productDTO.productFiles
-                    ? <img src={item.productDTO.productFiles?.length > 0 ? (API_ROOT_PATH + item.productDTO.productFiles[0].path) : DEFAULT_IMAGE_PATH} alt="Küçük Resim" width="80" height="80" />
-                    : <img src={DEFAULT_IMAGE_PATH} alt="Küçük Resim" width="80" height="80" />
-                  }
 
-                  
-
-                  <div className="ms-2 me-auto">
-                    <div className="fw-bold">{item.productDTO.translation ? item.productDTO.translation[0].name : "Self Waiter Sunar"}</div>
-                    {item.productDTO.translation ? item.productDTO.translation[0].description : "Self Waiter Sunar"}
-                  </div>
-                  <i className="bi bi-x-circle-fill custom-icon" onClick={ ()=>deleteBasketItem(item.id as string) }></i>
-                  <i className="bi bi-arrow-up-circle custom-icon" onClick={ ()=>updateBasketItem({basketItemId: item.id, quantity: (item.quantity ? (item.quantity+1) : 0)}) }></i>
-                  <i className="bi bi-arrow-down-circle custom-icon" onClick={ ()=>updateBasketItem({basketItemId: item.id, quantity: (item.quantity ? (item.quantity-1) : 0)}) }></i>
-
-                  <Badge bg="primary" pill>
-                    {item.quantity}
-                  </Badge>
-
-                </ListGroup.Item>
-                : <></>}
-            </div>
-          ))
-        }
-
-      </ListGroup>
-      <Button variant="primary">Siparişi Onayla</Button>
+      {
+        basketItems.getBasketItemDTOs!= null && basketItems.getBasketItemDTOs?.length > 0
+        ? (<>
+          <ListGroup as="ol" numbered>
+            {
+              basketItems.getBasketItemDTOs?.map(item => (
+                <div key={item.id} id={`item-${item.id}`}>
+                  {item.productDTO
+                    ? <ListGroup.Item
+                      as="li"
+                      className="d-flex justify-content-between align-items-start"
+                    >
+                      {
+                        item.productDTO.productFiles
+                        ? <img src={item.productDTO.productFiles?.length > 0 ? (API_ROOT_PATH + item.productDTO.productFiles[0].path) : DEFAULT_IMAGE_PATH} alt="Küçük Resim" width="80" height="80" />
+                        : <img src={DEFAULT_IMAGE_PATH} alt="Küçük Resim" width="80" height="80" />
+                      }
+    
+                      
+    
+                      <div className="ms-2 me-auto">
+                        <div className="fw-bold">{item.productDTO.translation ? item.productDTO.translation[0].name : "Self Waiter Sunar"}</div>
+                        {item.productDTO.translation ? item.productDTO.translation[0].description : "Self Waiter Sunar"}
+                      </div>
+                      <i className="bi bi-x-circle-fill custom-icon" onClick={ ()=>deleteBasketItem(item.id as string) }></i>
+                      <i className="bi bi-arrow-up-circle custom-icon" onClick={ ()=>updateBasketItem({basketItemId: item.id, quantity: (item.quantity ? (item.quantity+1) : 0)}) }></i>
+                      <i className="bi bi-arrow-down-circle custom-icon" onClick={ ()=>updateBasketItem({basketItemId: item.id, quantity: (item.quantity ? (item.quantity-1) : 0)}) }></i>
+    
+                      <Badge bg="primary" pill>
+                        {item.quantity}
+                      </Badge>
+    
+                    </ListGroup.Item>
+                    : <></>}
+                </div>
+              ))
+            }
+    
+          </ListGroup>
+          <Button variant="primary">Siparişi Onayla</Button>
+          </>
+          )
+        :(<BasketItemNotFoundAlert/>)
+      }
+      
     </div>
   )
 }
