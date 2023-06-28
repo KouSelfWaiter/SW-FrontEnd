@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react'
 import './ProductDetailPage.css'
 import 'bootstrap/dist/css/bootstrap.css';
 import productImage from "./turk-kahvesi.png"
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import GetAllProductsResponse from '../../contracts/products/getAllProducts/GetAllProductsResponse';
 import { GetByIdProductResponse } from '../../contracts/products/getByIdProduct/GetByIdProductResponse';
 import ProductService from '../../services/models/products/ProductService';
 import { API_ROOT_PATH, DEFAULT_IMAGE_PATH } from '../../constDatas/constData';
+import AddBasketItemRequest from '../../contracts/baskets/addBasketItem/AddBasketItemRequest';
+import BasketService from '../../services/models/baskets/BasketService';
 
 interface RouteParams {
   id: string;
@@ -16,6 +18,8 @@ function ProductDetailPage() {
 
   const { id } = useParams<RouteParams>();
   const [productResponse, setProductResponse] = useState<GetByIdProductResponse>({})
+  const basketService:BasketService = new BasketService()
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -29,6 +33,13 @@ function ProductDetailPage() {
     fetchData()
 
   }, [])
+
+  const addBasketItem = async (addBasketItem: Partial<AddBasketItemRequest>) =>{
+    await basketService.addBasketItem(addBasketItem)
+  }
+  const returnHome = ()=>{
+    navigate("/")
+  }
 
   return (
 
@@ -64,8 +75,8 @@ function ProductDetailPage() {
             </div>
 
             <div style={{ display: 'flex', justifyContent: 'space-between', paddingLeft: "4%", paddingRight: "4%" }}>
-              <button className='custom-button'>Sipariş Listesine Ekle</button>
-              <button className='custom-button'>Ana Sayfaya Dön</button>
+              <button className='custom-button' onClick={()=> addBasketItem({productId:productResponse.product?.id, quantity:1})}>Sipariş Listesine Ekle</button>
+              <button className='custom-button' onClick={returnHome}>Ana Sayfaya Dön</button>
             </div>
 
             <br />

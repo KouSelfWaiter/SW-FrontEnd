@@ -9,9 +9,12 @@ import GetAllProductsResponse from '../../contracts/products/getAllProducts/GetA
 import { API_ROOT_PATH, DEFAULT_IMAGE_PATH } from '../../constDatas/constData';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import BasketService from '../../services/models/baskets/BasketService';
+import AddBasketItemRequest from '../../contracts/baskets/addBasketItem/AddBasketItemRequest';
 
 const CustomProductCard: React.FC = () => {
   const [activeFoodType, setActiveFoodType] = useState("all");
+  const basketService:BasketService = new BasketService()
 
   const [productResponse, setProductResponse] = useState<GetAllProductsResponse>({})
 
@@ -73,7 +76,9 @@ const CustomProductCard: React.FC = () => {
     setActiveFoodType(e.currentTarget.getAttribute("data-food-type") || "all");
   };
 
-
+  const addBasketItem = async (addBasketItem: Partial<AddBasketItemRequest>) =>{
+    await basketService.addBasketItem(addBasketItem)
+  }
 
   return (
     <section
@@ -192,6 +197,7 @@ const CustomProductCard: React.FC = () => {
                   <CustomLink to={`/products/${item.id}`} ><h3>{item.translation ? item.translation[0].name : ""}</h3> </CustomLink>
                   <span>{item.price}$</span>
                 </Card.Text>
+                <Button variant="secondary" onClick={()=> addBasketItem({productId:item.id, quantity:1})}>Sepete Ekle</Button>
               </Card.Body>
             </Card>
             </div>

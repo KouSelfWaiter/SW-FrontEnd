@@ -1,3 +1,4 @@
+import AddBasketItemRequest from "../../../contracts/baskets/addBasketItem/AddBasketItemRequest"
 import DelteBasketItemRequest from "../../../contracts/baskets/deleteBasketItem/DeleteBasketItemRequest"
 import GetActiveBasketIdResponse from "../../../contracts/baskets/getActiveBasketId/GetActiveBasketIdResponse"
 import GetBasketItemsResponse from "../../../contracts/baskets/getBasketItems/GetBasketItemsResponse"
@@ -39,6 +40,12 @@ export default class BasketService{
             controller:"Baskets"
         }, updateBasketItemRequest)
 
+    }
+
+    async addBasketItem(addBasketItemRequest: Partial<AddBasketItemRequest>):Promise<void>{
+        await this.httpService.postAsync<AddBasketItemRequest>({
+            controller:"Baskets"
+        }, addBasketItemRequest)
     }
 
 }
