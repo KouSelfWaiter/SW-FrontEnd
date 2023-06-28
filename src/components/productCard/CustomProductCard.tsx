@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import "./CustomProductCard.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import imgHeader from './turk-kahvesi.png';
@@ -11,18 +11,21 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import BasketService from '../../services/models/baskets/BasketService';
 import AddBasketItemRequest from '../../contracts/baskets/addBasketItem/AddBasketItemRequest';
+import LoadingContext from '../../contex/LoadingContext';
 
 const CustomProductCard: React.FC = () => {
   const [activeFoodType, setActiveFoodType] = useState("all");
   const basketService:BasketService = new BasketService()
 
   const [productResponse, setProductResponse] = useState<GetAllProductsResponse>({})
-
+  const loadingContextData = useContext(LoadingContext)
 
   useEffect(() => {
     const fetchData = async () => {
       const productService: ProductService = new ProductService()
+      loadingContextData.setLoadingProgress(true)
       let data: GetAllProductsResponse = await productService.getAllProducts({ page: 0, size: 5 })
+      loadingContextData.setLoadingProgress(false)
       setProductResponse(data)
     }
 

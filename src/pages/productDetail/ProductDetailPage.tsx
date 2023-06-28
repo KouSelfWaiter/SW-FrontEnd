@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import './ProductDetailPage.css'
 import 'bootstrap/dist/css/bootstrap.css';
 import productImage from "./turk-kahvesi.png"
@@ -9,6 +9,7 @@ import ProductService from '../../services/models/products/ProductService';
 import { API_ROOT_PATH, DEFAULT_IMAGE_PATH } from '../../constDatas/constData';
 import AddBasketItemRequest from '../../contracts/baskets/addBasketItem/AddBasketItemRequest';
 import BasketService from '../../services/models/baskets/BasketService';
+import LoadingContext from '../../contex/LoadingContext';
 
 interface RouteParams {
   id: string;
@@ -20,13 +21,17 @@ function ProductDetailPage() {
   const [productResponse, setProductResponse] = useState<GetByIdProductResponse>({})
   const basketService:BasketService = new BasketService()
   const navigate = useNavigate();
+  const loadingDataContext = useContext(LoadingContext)
 
   useEffect(() => {
     const fetchData = async () => {
       const productService: ProductService = new ProductService()
+      loadingDataContext.setLoadingProgress(true)
       let data: GetByIdProductResponse = await productService.getByIdProduct({
         id: id
       })
+      loadingDataContext.setLoadingProgress(false)
+
       setProductResponse(data)
     }
 

@@ -18,6 +18,7 @@ import GetAllProductsResponse from '../../contracts/products/getAllProducts/GetA
 import BasketPage from '../../pages/basket/BasketPage';
 import BasketService from '../../services/models/baskets/BasketService';
 import GetActiveBasketIdResponse from '../../contracts/baskets/getActiveBasketId/GetActiveBasketIdResponse';
+import ProductsPage from '../../pages/productsPage/ProductsPage';
 
 function CustomNavbar() {
 
@@ -94,7 +95,7 @@ function CustomNavbar() {
 
 
       <Routes>
-        <Route path='/food-menu-section' element={<CustomProductCard />} />
+        <Route path='/food-menu-section' element={<ProductsPage />} />
         <Route path="/products/:id" element={<ProductDetailPage />} />
         <Route path='/' element={<Home />} />
         <Route path='/basket/:id' element={<BasketPage />} />

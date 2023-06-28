@@ -1,37 +1,30 @@
-import React, { useState, useEffect } from 'react'
+import React, { useContext } from 'react'
 import SyncLoader from "react-spinners/SyncLoader";
 import "./CustomSpinner.css"
+import LoadingContext from '../../contex/LoadingContext';
+
 
 
 function CustomSpinner() {
-
-    let [loading, setLoading] = useState<boolean>(false);
-    let [color, setColor] = useState("#ffffff");
-
-    useEffect(() => {
-        setLoading(true)
-        setTimeout(() => {
-            setLoading(false)
-        }, 3000)
-    }, [])
+    const loadingContextData = useContext(LoadingContext)
 
     return (
         <>
             {
-                loading ?
+                loadingContextData.loadingProgress ?
                     <div className='spinner-container'>
                         <SyncLoader
 
-                            loading={loading}
+                            loading={loadingContextData.loadingProgress}
                             color='#ffffff'
                             size={50}
 
                         />
                     </div>
                     :
-                    
+
                     <></>
-                    
+
             }
         </>
     )

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { useParams } from 'react-router-dom';
 import GetBasketItemsResponse from '../../contracts/baskets/getBasketItems/GetBasketItemsResponse';
 import BasketService from '../../services/models/baskets/BasketService';
@@ -12,6 +12,7 @@ import $ from 'jquery'
 import UpdateBasketItemRequest from '../../contracts/baskets/updateBasketItem/UpdateBasketItemRequest';
 import GetBasketItemDTO from '../../contracts/baskets/GetBasketItemDTO';
 import BasketItemNotFoundAlert from '../../components/alert/basketItemsAlert/basketItemNotFoundAlert';
+import LoadingContext from '../../contex/LoadingContext';
 
 interface RouteParams {
   id: string;
@@ -22,15 +23,17 @@ function BasketPage() {
   const basketService: BasketService = new BasketService()
   const { id } = useParams<RouteParams>();
   const [basketItems, setBasketItems] = useState<GetBasketItemsResponse>({})
+  const loadingContextData = useContext(LoadingContext)
 
 
   useEffect(() => {
 
     const fetchData = async () => {
+      loadingContextData.setLoadingProgress(true)
       let data: GetBasketItemsResponse = await basketService.getBasketItems()
+      loadingContextData.setLoadingProgress(false)
       setBasketItems(data)
 
-      console.log(data)
     }
 
     fetchData()

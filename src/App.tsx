@@ -9,13 +9,18 @@ import  CustomFooter from './components/footer/CustomFooter';
 import { HttpServiceClient } from './services/HttpServiceClient';
 import ProductDetailPage from './pages/productDetail/ProductDetailPage';
 import Home from './pages/home/HomePage';
+import { LoadingProvider } from './contex/LoadingContext';
+import CustomSpinner from './components/customSpinner/CustomSpinner';
 
 
 
 function App() {
   return (
     <div>
-      <CustomNavbar/>  
+      <LoadingProvider>
+        <CustomNavbar/>
+        <CustomSpinner/> 
+      </LoadingProvider> 
     </div>
   );
 }
