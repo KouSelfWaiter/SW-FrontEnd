@@ -12,6 +12,11 @@ import Card from 'react-bootstrap/Card';
 import BasketService from '../../services/models/baskets/BasketService';
 import AddBasketItemRequest from '../../contracts/baskets/addBasketItem/AddBasketItemRequest';
 import  { useLoading } from '../../contex/LoadingContext';
+import toast from 'react-hot-toast';
+import { errorToastr, infoToastr, successToastr } from '../../services/ToastrServiceClient';
+import { ToastrMessageEnum } from '../../enums/toastrMessagEnum/ToastrMessageEnum';
+
+
 
 const CustomProductCard: React.FC = () => {
   const [activeFoodType, setActiveFoodType] = useState("all");
@@ -81,6 +86,8 @@ const CustomProductCard: React.FC = () => {
 
   const addBasketItem = async (addBasketItem: Partial<AddBasketItemRequest>) =>{
     await basketService.addBasketItem(addBasketItem)
+    successToastr({content: ToastrMessageEnum.AddToCartSuccess, position:'top-center'})
+    
   }
 
   return (
@@ -146,42 +153,6 @@ const CustomProductCard: React.FC = () => {
               </button>
             </div>
           </div>
-
-          {/* <div className={`row food-item-wrap ${activeFoodType}`}>
-            {productResponse.products?.map((item) => (
-
-              <div key={item.id} className={`col-lg-3 col-md-4 col-sm-6 col-12 food-item ${"salad"}-type`}>
-
-                <div className="item-wrap bottom-up play-on-scroll">
-                  <div className="item-img">
-                    <div className="img-holder bg-img">
-                      {
-                        item.productFiles ? <img
-                        src={item.productFiles?.length > 0 ? (API_ROOT_PATH+item.productFiles[0].path) : DEFAULT_IMAGE_PATH}
-                        alt="alt"
-                       style={{width: "100px", height:"100px"}}/> : <img
-                      src={DEFAULT_IMAGE_PATH}
-                      alt="alt"
-                    />
-                      }
-                      
-                    </div>
-                  </div>
-                  <div className="item-info">
-                    <div>
-                      <CustomLink to={`/products/${item.id}`} ><h3>{item.translation ? item.translation[0].name : ""}</h3> </CustomLink>
-                      <span>{item.price}$</span>
-                    </div>
-                    <div className="cart-btn">
-                      <i className={"bi bi-cup-hot"} style={{ fontSize: '35px' }}></i>
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-
-            ))}
-          </div> */}
 
           <br />
 

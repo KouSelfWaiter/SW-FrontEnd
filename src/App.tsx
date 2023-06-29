@@ -11,6 +11,7 @@ import ProductDetailPage from './pages/productDetail/ProductDetailPage';
 import Home from './pages/home/HomePage';
 import { LoadingProvider } from './contex/LoadingContext';
 import CustomSpinner from './components/customSpinner/CustomSpinner';
+import { Toaster } from 'react-hot-toast';
 
 
 
@@ -20,6 +21,7 @@ function App() {
       <LoadingProvider>
         <CustomNavbar/>
         <CustomSpinner/> 
+        <Toaster/>
       </LoadingProvider> 
     </div>
   );

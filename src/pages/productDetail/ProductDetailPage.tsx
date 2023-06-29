@@ -10,6 +10,8 @@ import { API_ROOT_PATH, DEFAULT_IMAGE_PATH } from '../../constDatas/constData';
 import AddBasketItemRequest from '../../contracts/baskets/addBasketItem/AddBasketItemRequest';
 import BasketService from '../../services/models/baskets/BasketService';
 import LoadingContext, { useLoading } from '../../contex/LoadingContext';
+import { successToastr } from '../../services/ToastrServiceClient';
+import { ToastrMessageEnum } from '../../enums/toastrMessagEnum/ToastrMessageEnum';
 
 interface RouteParams {
   id: string;
@@ -41,6 +43,7 @@ function ProductDetailPage() {
 
   const addBasketItem = async (addBasketItem: Partial<AddBasketItemRequest>) =>{
     await basketService.addBasketItem(addBasketItem)
+    successToastr({content: ToastrMessageEnum.AddToCartSuccess, position: 'top-center'})
   }
   const returnHome = ()=>{
     navigate("/")
