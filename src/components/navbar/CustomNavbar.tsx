@@ -19,6 +19,7 @@ import BasketPage from '../../pages/basket/BasketPage';
 import BasketService from '../../services/models/baskets/BasketService';
 import GetActiveBasketIdResponse from '../../contracts/baskets/getActiveBasketId/GetActiveBasketIdResponse';
 import ProductsPage from '../../pages/productsPage/ProductsPage';
+import CustomerOrdersPage from '../../pages/orders/CustomerOrdersPage';
 
 function CustomNavbar() {
   const navigate = useNavigate();
@@ -60,6 +61,8 @@ function CustomNavbar() {
                   Sıcak Çikolata
                 </NavDropdown.Item>
               </NavDropdown>
+              
+              <Nav.Link><CustomLink to={"/orders"}>Siparişler</CustomLink></Nav.Link>
 
               <Nav.Link  disabled>
                 Yakında Hizmetinizde
@@ -90,6 +93,7 @@ function CustomNavbar() {
         <Route path="/products/:id" element={<ProductDetailPage />} />
         <Route path='/' element={<Home />} />
         <Route path='/basket/:id' element={<BasketPage />} />
+        <Route path='/orders' element={<CustomerOrdersPage />} />
       </Routes>
     </div>
   )
