@@ -12,7 +12,7 @@ import $ from 'jquery'
 import UpdateBasketItemRequest from '../../contracts/baskets/updateBasketItem/UpdateBasketItemRequest';
 import GetBasketItemDTO from '../../contracts/baskets/GetBasketItemDTO';
 import BasketItemNotFoundAlert from '../../components/alert/basketItemsAlert/basketItemNotFoundAlert';
-import LoadingContext from '../../contex/LoadingContext';
+import  { useLoading } from '../../contex/LoadingContext';
 
 interface RouteParams {
   id: string;
@@ -23,7 +23,7 @@ function BasketPage() {
   const basketService: BasketService = new BasketService()
   const { id } = useParams<RouteParams>();
   const [basketItems, setBasketItems] = useState<GetBasketItemsResponse>({})
-  const loadingContextData = useContext(LoadingContext)
+  const loadingContextData = useLoading()
 
 
   useEffect(() => {

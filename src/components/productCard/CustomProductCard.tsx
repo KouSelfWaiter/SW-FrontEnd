@@ -11,14 +11,14 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import BasketService from '../../services/models/baskets/BasketService';
 import AddBasketItemRequest from '../../contracts/baskets/addBasketItem/AddBasketItemRequest';
-import LoadingContext from '../../contex/LoadingContext';
+import  { useLoading } from '../../contex/LoadingContext';
 
 const CustomProductCard: React.FC = () => {
   const [activeFoodType, setActiveFoodType] = useState("all");
   const basketService:BasketService = new BasketService()
 
   const [productResponse, setProductResponse] = useState<GetAllProductsResponse>({})
-  const loadingContextData = useContext(LoadingContext)
+  const loadingContextData = useLoading()
 
   useEffect(() => {
     const fetchData = async () => {

@@ -1,4 +1,4 @@
-import { ReactNode, createContext, useState } from 'react';
+import { ReactNode, createContext, useState, useContext } from 'react';
 
 interface LoadingContextData {
   // Context ile ilgili verilerin arayüzünü veya tipini burada tanımlayın
@@ -23,6 +23,8 @@ export const LoadingProvider = ({children}: ProviderProps)=>{
 
   return <LoadingContext.Provider value={values}>{children}</LoadingContext.Provider>
 }
+
+export const useLoading = () => useContext(LoadingContext)
 
 export default LoadingContext;
 

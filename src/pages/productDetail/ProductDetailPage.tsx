@@ -9,7 +9,7 @@ import ProductService from '../../services/models/products/ProductService';
 import { API_ROOT_PATH, DEFAULT_IMAGE_PATH } from '../../constDatas/constData';
 import AddBasketItemRequest from '../../contracts/baskets/addBasketItem/AddBasketItemRequest';
 import BasketService from '../../services/models/baskets/BasketService';
-import LoadingContext from '../../contex/LoadingContext';
+import LoadingContext, { useLoading } from '../../contex/LoadingContext';
 
 interface RouteParams {
   id: string;
@@ -21,7 +21,7 @@ function ProductDetailPage() {
   const [productResponse, setProductResponse] = useState<GetByIdProductResponse>({})
   const basketService:BasketService = new BasketService()
   const navigate = useNavigate();
-  const loadingDataContext = useContext(LoadingContext)
+  const loadingDataContext = useLoading()
 
   useEffect(() => {
     const fetchData = async () => {
