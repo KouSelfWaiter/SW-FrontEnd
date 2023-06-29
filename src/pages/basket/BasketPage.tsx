@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react'
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import GetBasketItemsResponse from '../../contracts/baskets/getBasketItems/GetBasketItemsResponse';
 import BasketService from '../../services/models/baskets/BasketService';
 import Badge from 'react-bootstrap/Badge';
@@ -13,6 +13,9 @@ import UpdateBasketItemRequest from '../../contracts/baskets/updateBasketItem/Up
 import GetBasketItemDTO from '../../contracts/baskets/GetBasketItemDTO';
 import BasketItemNotFoundAlert from '../../components/alert/basketItemsAlert/basketItemNotFoundAlert';
 import  { useLoading } from '../../contex/LoadingContext';
+import AddOrder from '../../contracts/orders/addOrder/AddOrderRequest';
+import AddOrderRequest from '../../contracts/orders/addOrder/AddOrderRequest';
+import OrderService from '../../services/models/orders/OrderService';
 
 interface RouteParams {
   id: string;
@@ -21,9 +24,11 @@ interface RouteParams {
 
 function BasketPage() {
   const basketService: BasketService = new BasketService()
+  const orderService: OrderService = new OrderService()
   const { id } = useParams<RouteParams>();
   const [basketItems, setBasketItems] = useState<GetBasketItemsResponse>({})
   const loadingContextData = useLoading()
+  const navigate = useNavigate();
 
 
   useEffect(() => {
@@ -65,7 +70,12 @@ function BasketPage() {
       : item
     );
     setBasketItems({...basketItems, getBasketItemDTOs:updatedData as GetBasketItemDTO []})
-  } 
+  }
+  
+  const addToOrder = async (addOrder:Partial<AddOrderRequest>) =>{
+     await orderService.addOrder(addOrder)
+     navigate(`/`) 
+  }
 
   return (
     <div>
@@ -109,7 +119,7 @@ function BasketPage() {
             }
     
           </ListGroup>
-          <Button variant="primary">Siparişi Onayla</Button>
+          <Button variant="primary" onClick={()=> addToOrder({basketId:id, note:"Lütfen Bol Koyunuz."})}>Siparişi Onayla</Button>
           </>
           )
         :(<BasketItemNotFoundAlert/>)

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import "./CustomNavbar.css"
 import "bootstrap-icons/font/bootstrap-icons.css";
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import CustomLink from '../customLink/CustomLink';
 import CustomProductCard from '../productCard/CustomProductCard';
 import Home from '../../pages/home/HomePage';
@@ -21,26 +21,17 @@ import GetActiveBasketIdResponse from '../../contracts/baskets/getActiveBasketId
 import ProductsPage from '../../pages/productsPage/ProductsPage';
 
 function CustomNavbar() {
+  const navigate = useNavigate();
 
-  const [activeBasketId, setactiveBasketId] = useState<string>("")
+  const getActiveBasket = async()=>{
 
-  useEffect(()=>{
-    // simdilik basketId gidiyor ama 
-    // kurulan mimari tableNo olacak
-    // su an zaten deafaul 1 numara var
-    // mimari uygun basketId yi atıyor 
-    // Kafa karismasın !!
-    const fetchData = async ()=>{
-      const basketService:BasketService = new BasketService()
-      let data: GetActiveBasketIdResponse = await basketService.getActiveBasketId()
+    const basketService:BasketService = new BasketService()
+    let data: GetActiveBasketIdResponse = await basketService.getActiveBasketId()
+    
+    if(data.id!=null)
+      navigate(`/basket/${data.id}`)
       
-      if(data.id!=null)
-        setactiveBasketId(data.id)
-    }
-
-    fetchData()
-
-  }, [])
+  }
 
   return (
     <div>
@@ -76,9 +67,9 @@ function CustomNavbar() {
 
             </Nav>
             
-            <CustomLink to={`/basket/${activeBasketId}`}>
-            <i className="bi bi-cart-check custom-icon"></i>
-            </CustomLink>
+
+            <i className="bi bi-cart-check custom-icon" onClick={getActiveBasket}></i>
+      
 
             <Form className="d-flex">
               <Form.Control
