@@ -20,6 +20,7 @@ import BasketService from '../../services/models/baskets/BasketService';
 import GetActiveBasketIdResponse from '../../contracts/baskets/getActiveBasketId/GetActiveBasketIdResponse';
 import ProductsPage from '../../pages/productsPage/ProductsPage';
 import CustomerOrdersPage from '../../pages/orders/CustomerOrdersPage';
+import AdminOrdersPage from '../../pages/adminPages/orders/AdminOrdersPage';
 
 function CustomNavbar() {
   const navigate = useNavigate();
@@ -68,6 +69,8 @@ function CustomNavbar() {
                 Yakında Hizmetinizde
               </Nav.Link>
 
+              <Nav.Link><CustomLink to={"/admin/orders"}>Admin-Siparişler</CustomLink></Nav.Link>
+
             </Nav>
             
 
@@ -94,6 +97,7 @@ function CustomNavbar() {
         <Route path='/' element={<Home />} />
         <Route path='/basket/:id' element={<BasketPage />} />
         <Route path='/orders' element={<CustomerOrdersPage />} />
+        <Route path='/admin/orders' element={<AdminOrdersPage />} />
       </Routes>
     </div>
   )

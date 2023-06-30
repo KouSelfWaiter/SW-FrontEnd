@@ -7,4 +7,7 @@ export enum ToastrMessageEnum{
 
     GetCustomerOrdersSuccess = "Siparişler Başarıyla Getirildi.",
     GetCustomerOrdersError = "Siparişler Getirilirken Beklenmedik Bir Hata İle Karşılaşıldı.",
+
+    CompleteOrderSuccess = "Sipariş Başarılı Şekilde Hazırlandı.",
+    CompleteOrderError = "Sipariş Hazırlanırken Beklemöedik Bir Hata İle Karşılaşıldı."
 }

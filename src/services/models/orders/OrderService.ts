@@ -1,4 +1,5 @@
 import AddOrderRequest from "../../../contracts/orders/addOrder/AddOrderRequest";
+import completeOrderRequest from "../../../contracts/orders/completeOrder/CompleteOrderRequest";
 import GetCustomerOrdersRequest from "../../../contracts/orders/getOrders/GetCustomerOrdersRequest";
 import GetCustomerOrdersResponse from "../../../contracts/orders/getOrders/GetCustomerOrdersResponse";
 import { ToastrMessageEnum } from "../../../enums/toastrMessagEnum/ToastrMessageEnum";
@@ -44,5 +45,20 @@ export default class OrderService{
             
         }
     
+    }
+
+    async completeOrder(completeOrderRequest:Partial<completeOrderRequest>):Promise<void>{
+        try {
+
+            await this.httpService.postAsync({
+                fullEndPoint:`https://localhost:7272/api/Orders/${completeOrderRequest.id}`
+            },{})
+
+            successToastr({content:ToastrMessageEnum.CompleteOrderSuccess})
+            
+        } catch (error) {
+            errorToastr({content:ToastrMessageEnum.CompleteOrderError})
+            
+        }
     }
 }
