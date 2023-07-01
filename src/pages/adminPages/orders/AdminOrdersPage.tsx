@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState,useLayoutEffect  } from 'react'
 import Badge from 'react-bootstrap/Badge';
 import ListGroup from 'react-bootstrap/ListGroup';
 import OrderService from '../../../services/models/orders/OrderService';
@@ -8,18 +8,37 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import { useNavigate } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import $ from 'jquery'
+
+import { successToastr } from '../../../services/ToastrServiceClient';
+import SignalRService from '../../../services/SignalRService';
+
+
+
+
 function AdminOrdersPage() {
     const orderService: OrderService = new OrderService()
     const [adminOrders, setAdminOrders] = useState<GetCustomerOrdersResponse>({})
+    const [firstRender, setFirstRender] = useState<boolean>(true);
     const navigate = useNavigate()
+    const hubService:SignalRService = new SignalRService()
+
     useEffect(() => {
+
         const fetchData = async () => {
             const data = await orderService.getAllOrders({ page: 0, size: 10 })
             setAdminOrders(data)
         }
 
+        const subscribe = async ()=>{
+            await hubService.on("orderHub", "receiveOrderAddedMessage",(message) => { successToastr({content:message as string, position:'top-right'})})
+        }
+        subscribe()
+       
         fetchData()
+      
+    
     }, [])
+
 
     const completeOrder = async (id: string) => {
         await orderService.completeOrder({ id: id })
@@ -58,7 +77,7 @@ function AdminOrdersPage() {
                                                 <Dropdown.Menu>
                                                     {
                                                         item.basketItems?.map(basketItem => (
-
+                                                            <div key={basketItem.id}>
                                                             <Dropdown.Item onClick={() => { navigate(`/products/${basketItem.productDTO?.id}`) }} >
                                                                 {
                                                                     basketItem.productDTO?.translation
@@ -72,7 +91,7 @@ function AdminOrdersPage() {
                                                                     {basketItem.productDTO?.price + "TL"}
                                                                 </Badge>
                                                             </Dropdown.Item>
-
+                                                            </div>
                                                         ))
                                                     }
 

@@ -4,7 +4,7 @@ import { ToastrMessageEnum } from '../enums/toastrMessagEnum/ToastrMessageEnum';
 
 
 interface IToastr{
-  content:ToastrMessageEnum
+  content:ToastrMessageEnum | string
   position?:ToastPosition
   minWidth?:string
   
