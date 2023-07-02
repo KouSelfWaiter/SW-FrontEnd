@@ -6,6 +6,7 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import AdminGraphicPage from '../graphic/AdminGraphicPage';
 import './AdminDashboardPage.css'
 import AdminProductsPage from '../products/AdminProductsPage';
+import AdminAddProductPage from '../products/addProducts/AdminAddProductPage';
 function AdminDashboardPage() {
     const navigate = useNavigate()
     const [activeIndex, setActiveIndex] = useState<number>(0);
@@ -42,6 +43,7 @@ function AdminDashboardPage() {
                         <Route path="*" element={<AdminGraphicPage />} />
                         <Route path="orders" element={<AdminOrdersPage />} />
                         <Route path="products" element={<AdminProductsPage />} />
+                        <Route path="products/add" element={<AdminAddProductPage />} />
                     </Routes>
                 </div>
 

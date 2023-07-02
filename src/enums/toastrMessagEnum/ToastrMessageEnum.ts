@@ -9,5 +9,12 @@ export enum ToastrMessageEnum{
     GetCustomerOrdersError = "Siparişler Getirilirken Beklenmedik Bir Hata İle Karşılaşıldı.",
 
     CompleteOrderSuccess = "Sipariş Başarılı Şekilde Hazırlandı.",
-    CompleteOrderError = "Sipariş Hazırlanırken Beklemöedik Bir Hata İle Karşılaşıldı."
+    CompleteOrderError = "Sipariş Hazırlanırken Beklemedik Bir Hata İle Karşılaşıldı.",
+
+    AddProductSuccess = "Ürün Başarılı Şekilde Eklendi.",
+    AddProductError = "Ürün Eklenirken Beklenmedik Bir Hata İle Karşılaşıldı.",
+
+    GetAllCategoriesSuccess = "Kategoriler Başarılı Bir Şekilde Getirildi.",
+    GetAllCategoriesError = "Kategoriler Getirilirken Bir Hata İle Karşılaşıldı.",
+
 }

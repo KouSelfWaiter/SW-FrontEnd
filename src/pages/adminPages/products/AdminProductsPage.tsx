@@ -6,11 +6,12 @@ import { useLoading } from '../../../contex/LoadingContext';
 import ProductService from '../../../services/models/products/ProductService';
 import ProductNotFoundAlert from '../../../components/alert/productAlert/ProductNotFoundAlert';
 import Button from 'react-bootstrap/Button';
+import { useNavigate } from 'react-router-dom';
 function AdminProductsPage() {
   const [productResponse, setProductResponse] = useState<GetAllProductsResponse>({})
   const loadingContextData = useLoading()
   const productService: ProductService = new ProductService()
-
+  const navigate = useNavigate()
 
   useEffect(() => {
     const fetchData = async () => {
@@ -22,6 +23,10 @@ function AdminProductsPage() {
 
     fetchData()
   }, [])
+
+  const navigateToAddProduct = () => {
+    navigate("add")
+  }
 
   return (
     <div>
@@ -64,7 +69,7 @@ function AdminProductsPage() {
         </tbody>
       </Table>
       <br />
-      <Button variant='success'>Ürün Ekle</Button>  
+      <Button variant='success' onClick={navigateToAddProduct}>Ürün Ekle</Button>  
 
     </div>
   )

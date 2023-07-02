@@ -3,6 +3,9 @@ import GetAllProductsRequest  from "../../../contracts/products/getAllProducts/G
 import GetAllProductsResponse from "../../../contracts/products/getAllProducts/GetAllProductsResponse";
 import { GetByIdProductResponse } from "../../../contracts/products/getByIdProduct/GetByIdProductResponse";
 import { HttpServiceClient } from "../../HttpServiceClient";
+import AddProductRequest from '../../../contracts/products/addProducts/AddProductRequest';
+import { errorToastr, successToastr } from '../../ToastrServiceClient';
+import { ToastrMessageEnum } from '../../../enums/toastrMessagEnum/ToastrMessageEnum';
 
 export default class ProductService{
 
@@ -27,6 +30,23 @@ export default class ProductService{
         },getProductByIdRequest.id)
         
         return promiseData
+    }
+
+    async addProduct(addProductRequest: Partial<AddProductRequest>){
+
+        try {
+            await this.httpService.postAsync<AddProductRequest>({
+                controller:"Products"
+            }, addProductRequest)
+
+            successToastr({content:ToastrMessageEnum.AddProductSuccess})
+            
+        } catch (error) {
+
+            errorToastr({content:ToastrMessageEnum.AddProductError})
+            
+        }
+
     }
 
 }
