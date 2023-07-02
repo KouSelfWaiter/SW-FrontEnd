@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import ListGroup from 'react-bootstrap/ListGroup';
 import AdminGraphicPage from '../graphic/AdminGraphicPage';
 import './AdminDashboardPage.css'
+import AdminProductsPage from '../products/AdminProductsPage';
 function AdminDashboardPage() {
     const navigate = useNavigate()
     const [activeIndex, setActiveIndex] = useState<number>(0);
@@ -27,7 +28,7 @@ function AdminDashboardPage() {
                         <ListGroup.Item  action onClick={()=> goToClickedArea("orders", 1)} className={activeIndex === 1 ? 'activeColor' : "" } >
                             Siparişler
                         </ListGroup.Item>
-                        <ListGroup.Item  action disabled>
+                        <ListGroup.Item  action onClick={()=> goToClickedArea("products", 2)} className={activeIndex === 2 ? 'activeColor' : "" }>
                             Ürünler
                         </ListGroup.Item>
                         <ListGroup.Item  action disabled>
@@ -40,6 +41,7 @@ function AdminDashboardPage() {
                     <Routes>
                         <Route path="*" element={<AdminGraphicPage />} />
                         <Route path="orders" element={<AdminOrdersPage />} />
+                        <Route path="products" element={<AdminProductsPage />} />
                     </Routes>
                 </div>
 
