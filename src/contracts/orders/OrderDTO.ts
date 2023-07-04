@@ -6,5 +6,6 @@ export default class OrderDTO{
     orderCode?:string
     basketItems?: GetBasketItemDTO[]
     tableNo?:string
+    totaPrice?:number
 
 }

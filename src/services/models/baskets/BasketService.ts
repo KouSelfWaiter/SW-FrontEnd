@@ -1,8 +1,10 @@
 import AddBasketItemRequest from "../../../contracts/baskets/addBasketItem/AddBasketItemRequest"
 import DelteBasketItemRequest from "../../../contracts/baskets/deleteBasketItem/DeleteBasketItemRequest"
+import DeleteBasketItemRespose from "../../../contracts/baskets/deleteBasketItem/DeleteBasketItemResponse"
 import GetActiveBasketIdResponse from "../../../contracts/baskets/getActiveBasketId/GetActiveBasketIdResponse"
 import GetBasketItemsResponse from "../../../contracts/baskets/getBasketItems/GetBasketItemsResponse"
 import UpdateBasketItemRequest from "../../../contracts/baskets/updateBasketItem/UpdateBasketItemRequest"
+import UpdateBasketItemResponse from "../../../contracts/baskets/updateBasketItem/UpdateBasketItemResponse"
 import { HttpServiceClient } from "../../HttpServiceClient"
 
 export default class BasketService{
@@ -27,18 +29,24 @@ export default class BasketService{
         return promiseData
     }
 
-    async deleteBasketItem(deleteBasketItemRequest:Partial<DelteBasketItemRequest>):Promise<void>{
+    async deleteBasketItem(deleteBasketItemRequest:Partial<DelteBasketItemRequest>):Promise<DeleteBasketItemRespose | any>{
+
         if(deleteBasketItemRequest.id!=null) {
-            await this.httpService.deleteAsync({
+            const deleteBasketItemResponse: DeleteBasketItemRespose  = await this.httpService.deleteAsync<DeleteBasketItemRespose>({
                 controller:"Baskets"
             }, deleteBasketItemRequest.id)
+            return deleteBasketItemResponse
         }
     }
 
-    async updateBasketItem(updateBasketItemRequest:Partial<UpdateBasketItemRequest>):Promise<void>{
-        await this.httpService.putAsync<UpdateBasketItemRequest>({
+    async updateBasketItem(updateBasketItemRequest:Partial<UpdateBasketItemRequest>):Promise<UpdateBasketItemResponse | any>{
+        const promiseData = await this.httpService.putAsync<UpdateBasketItemRequest>({
             controller:"Baskets"
         }, updateBasketItemRequest)
+
+     
+
+        return promiseData
 
     }
 

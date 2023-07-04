@@ -16,6 +16,8 @@ import { useLoading } from '../../contex/LoadingContext';
 import AddOrder from '../../contracts/orders/addOrder/AddOrderRequest';
 import AddOrderRequest from '../../contracts/orders/addOrder/AddOrderRequest';
 import OrderService from '../../services/models/orders/OrderService';
+import UpdateBasketItemResponse from '../../contracts/baskets/updateBasketItem/UpdateBasketItemResponse';
+import DeleteBasketItemRespose from '../../contracts/baskets/deleteBasketItem/DeleteBasketItemResponse';
 interface RouteParams {
   id: string;
   [key: string]: string | undefined;
@@ -45,30 +47,32 @@ function BasketPage() {
   }, [])
 
   const deleteBasketItem = async (id: string) => {
-    await basketService.deleteBasketItem({ id: id })
+    const deleteBasketItemResponse : DeleteBasketItemRespose  = await basketService.deleteBasketItem({ id: id }) as DeleteBasketItemRespose
 
     const updatedData = basketItems.getBasketItemDTOs?.filter(item => item.id !== id)
     $(`#item-${id}`).fadeOut(500, () => {
-      setBasketItems({ ...basketItems, getBasketItemDTOs: updatedData })
+      setBasketItems({ ...basketItems, getBasketItemDTOs: updatedData, totalPrice: deleteBasketItemResponse.totalPrice })
     });
+
 
   }
 
   const updateBasketItem = async (updateBasketItemRequest: Partial<UpdateBasketItemRequest>) => {
-    debugger
+    
     if (updateBasketItemRequest.quantity != null && updateBasketItemRequest.quantity <= 0) {
-      await deleteBasketItem(updateBasketItemRequest.basketItemId as string)
+      await deleteBasketItem(updateBasketItemRequest.basketItemId as string) 
       return
     }
 
-    await basketService.updateBasketItem(updateBasketItemRequest)
+    const updataBasketItemResponse:UpdateBasketItemResponse = await basketService.updateBasketItem(updateBasketItemRequest)
 
     const updatedData = basketItems.getBasketItemDTOs?.map(
       item => item.id === updateBasketItemRequest.basketItemId
         ? { ...item, quantity: updateBasketItemRequest.quantity } as GetBasketItemDTO
         : item
     );
-    setBasketItems({ ...basketItems, getBasketItemDTOs: updatedData as GetBasketItemDTO[] })
+    setBasketItems({ ...basketItems, getBasketItemDTOs: updatedData as GetBasketItemDTO[], totalPrice:updataBasketItemResponse.totalPrice })
+    console.log(basketItems.totalPrice)
   }
 
   const addToOrder = async (addOrder: Partial<AddOrderRequest>) => {
@@ -109,6 +113,7 @@ function BasketPage() {
                           <div className="fw-bold">{item.productDTO.translation ? item.productDTO.translation[0].name : "Self Waiter Sunar"}</div>
                           {item.productDTO.translation ? item.productDTO.translation[0].description : "Self Waiter Sunar"}
                         </div>
+                        <span>{item.productDTO.price} X {item.quantity} TL</span>
                         <i className="bi bi-x-circle-fill custom-icon" onClick={() => deleteBasketItem(item.id as string)}></i>
                         <i className="bi bi-arrow-up-circle custom-icon" onClick={() => updateBasketItem({ basketItemId: item.id, quantity: (item.quantity ? (item.quantity + 1) : 0) })}></i>
                         <i className="bi bi-arrow-down-circle custom-icon" onClick={() => updateBasketItem({ basketItemId: item.id, quantity: (item.quantity ? (item.quantity - 1) : 0) })}></i>
@@ -128,7 +133,9 @@ function BasketPage() {
             <div>
               <textarea value={text} onChange={handleTextChange} />
             </div>
-
+            <br />
+            <br />
+            <div>Toplam Tutar {basketItems.totalPrice} TL</div>
             <Button variant="primary" onClick={() => addToOrder({ basketId: id, note: text })}>Siparişi Onayla</Button>
 
           </>

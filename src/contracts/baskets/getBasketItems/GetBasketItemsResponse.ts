@@ -4,5 +4,6 @@ export default class GetBasketItemsResponse{
     basketId?:string
     tableNo?:string
     getBasketItemDTOs?: GetBasketItemDTO []
+    totalPrice?:number
     
 }
