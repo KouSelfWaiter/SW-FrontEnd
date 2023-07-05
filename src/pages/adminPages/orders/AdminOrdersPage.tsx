@@ -66,6 +66,7 @@ function AdminOrdersPage() {
                                                 <p>{`Sipariş Kodu ${item.orderCode}`}</p>
                                                 {item.note}
                                                 <br />
+                                                <div>Toplam Tutar {item.totalPrice} TL</div>
                                                 <Button variant="primary" onClick={() => completeOrder(item.id as string)}>Hazır</Button>
                                             </div>
 
