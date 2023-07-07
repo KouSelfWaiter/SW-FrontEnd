@@ -4,21 +4,25 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import GetCustomerOrdersResponse from '../../contracts/orders/getOrders/GetCustomerOrdersResponse';
 import OrderService from '../../services/models/orders/OrderService';
 import BasketItemNotFoundAlert from '../../components/alert/basketItemsAlert/basketItemNotFoundAlert';
+import CustomPagination from '../../components/pagination/CustomPagination';
 
 function CustomerOrdersPage() {
 
     const [customerOrders, setCustomerOrders] = useState<GetCustomerOrdersResponse>({})
     const orderService: OrderService = new OrderService()
 
+    const [currentPage, setCurrentPage] = useState<number>(1);
+    const maxSize: number = 10
+
+    const fetchData = async (page: number) => {
+        const data: GetCustomerOrdersResponse = await orderService.getAllOrders({ page: page-1, size: maxSize }) as GetCustomerOrdersResponse
+        setCustomerOrders(data)
+
+    }
+
     useEffect(() => {
 
-        const fetchData = async () => {
-            const data: GetCustomerOrdersResponse = await orderService.getAllOrders({ page: 0, size: 10 }) as GetCustomerOrdersResponse
-            setCustomerOrders(data)
-
-        }
-
-        fetchData()
+        fetchData(currentPage)
 
     }, [])
 
@@ -49,6 +53,15 @@ function CustomerOrdersPage() {
                             }
 
                         </ListGroup>
+                        <CustomPagination
+                            currentPage={currentPage}
+                            total={customerOrders.totalCount as number}
+                            limit={maxSize}
+                            onPageChange={async (page: number) => {
+                                setCurrentPage(page)
+                                await fetchData(page)
+                            }}
+                        />
                     </>)
                     : (<BasketItemNotFoundAlert />)
             }

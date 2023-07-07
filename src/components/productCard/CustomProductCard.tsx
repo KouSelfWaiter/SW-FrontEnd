@@ -11,30 +11,36 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import BasketService from '../../services/models/baskets/BasketService';
 import AddBasketItemRequest from '../../contracts/baskets/addBasketItem/AddBasketItemRequest';
-import  { useLoading } from '../../contex/LoadingContext';
+import { useLoading } from '../../contex/LoadingContext';
 import toast from 'react-hot-toast';
 import { errorToastr, infoToastr, successToastr } from '../../services/ToastrServiceClient';
 import { ToastrMessageEnum } from '../../enums/toastrMessagEnum/ToastrMessageEnum';
+import CustomPagination from '../pagination/CustomPagination';
 
 
 
 const CustomProductCard: React.FC = () => {
   const [activeFoodType, setActiveFoodType] = useState("all");
-  const basketService:BasketService = new BasketService()
+  const basketService: BasketService = new BasketService()
 
   const [productResponse, setProductResponse] = useState<GetAllProductsResponse>({})
   const loadingContextData = useLoading()
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const productService: ProductService = new ProductService()
-      loadingContextData.setLoadingProgress(true)
-      let data: GetAllProductsResponse = await productService.getAllProducts({ page: 0, size: 5 })
-      loadingContextData.setLoadingProgress(false)
-      setProductResponse(data)
-    }
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const maxSize: number = 12
 
-    fetchData()
+  const fetchData = async (page:number) => {
+    const productService: ProductService = new ProductService()
+    loadingContextData.setLoadingProgress(true)
+    let data: GetAllProductsResponse = await productService.getAllProducts({ page: page-1, size: maxSize })
+    loadingContextData.setLoadingProgress(false)
+    setProductResponse(data)
+  }
+
+  useEffect(() => {
+ 
+
+    fetchData(currentPage)
   }, [])
 
   useEffect(() => {
@@ -84,10 +90,10 @@ const CustomProductCard: React.FC = () => {
     setActiveFoodType(e.currentTarget.getAttribute("data-food-type") || "all");
   };
 
-  const addBasketItem = async (addBasketItem: Partial<AddBasketItemRequest>) =>{
+  const addBasketItem = async (addBasketItem: Partial<AddBasketItemRequest>) => {
     await basketService.addBasketItem(addBasketItem)
-    successToastr({content: ToastrMessageEnum.AddToCartSuccess, position:'top-center'})
-    
+    successToastr({ content: ToastrMessageEnum.AddToCartSuccess, position: 'top-center' })
+
   }
 
   return (
@@ -157,25 +163,40 @@ const CustomProductCard: React.FC = () => {
           <br />
 
           <div className='row'>
-          {productResponse.products?.map((item) => (
-            <div key={item.id} className='col-lg-3 col-md-4 col-sm-6 col-12'>
-            <Card  style={{ width: '14rem' }}>
-              {
-                item.productFiles
-                  ? <Card.Img variant="top" src={item.productFiles?.length > 0 ? (API_ROOT_PATH + item.productFiles[0].path) : DEFAULT_IMAGE_PATH} />
-                  : <Card.Img variant="top" src={DEFAULT_IMAGE_PATH} />
-              }
-              <Card.Body style={{backgroundColor: "#808080"}}>
-                {/* <Card.Title>{item.translation ? item.translation[0].name : ""}</Card.Title> */}
-                <Card.Text>
-                  <CustomLink to={`/products/${item.id}`} ><h3>{item.translation ? item.translation[0].name : ""}</h3> </CustomLink>
-                  <span>{item.price}$</span>
-                </Card.Text>
-                <Button variant="secondary" onClick={()=> addBasketItem({productId:item.id, quantity:1})}>Sepete Ekle</Button>
-              </Card.Body>
-            </Card>
-            </div>
-          ))}
+            {productResponse.products?.map((item) => (
+              <div key={item.id} className='col-lg-3 col-md-4 col-sm-6 col-12'>
+                <Card style={{ width: '14rem' }}>
+                  {
+                    item.productFiles
+                      ? <Card.Img variant="top" src={item.productFiles?.length > 0 ? (API_ROOT_PATH + item.productFiles[0].path) : DEFAULT_IMAGE_PATH} />
+                      : <Card.Img variant="top" src={DEFAULT_IMAGE_PATH} />
+                  }
+                  <Card.Body style={{ backgroundColor: "#808080" }}>
+                    {/* <Card.Title>{item.translation ? item.translation[0].name : ""}</Card.Title> */}
+                    <Card.Text>
+                      <CustomLink to={`/products/${item.id}`} ><h3>{item.translation ? item.translation[0].name : ""}</h3> </CustomLink>
+                      <span>{item.price}$</span>
+                    </Card.Text>
+                    <Button variant="secondary" onClick={() => addBasketItem({ productId: item.id, quantity: 1 })}>Sepete Ekle</Button>
+                  </Card.Body>
+                </Card>
+              </div>
+            ))}
+
+
+
+            <CustomPagination
+              currentPage={currentPage}
+              total={productResponse.totalCount as number}
+              limit={maxSize}
+              onPageChange={async (page: number) => {
+                setCurrentPage(page)
+                await fetchData(page)
+              }}
+            />
+
+
+
           </div>
 
 
