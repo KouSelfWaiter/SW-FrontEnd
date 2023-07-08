@@ -7,15 +7,28 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import ProductService from '../../services/models/products/ProductService';
+import { GetByIdProductResponse } from '../../contracts/products/getByIdProduct/GetByIdProductResponse';
+import Image from 'react-bootstrap/Image';
+import { API_ROOT_PATH } from '../../constDatas/constData';
 
-
-interface IProps{
-    productId:string
+interface IProps {
+    productId: string
 }
 
 function ImageForm({ productId }: IProps) {
     const productService: ProductService = new ProductService()
     const [selectedFile, setSelectedFile] = useState<FileList>()
+    const [selectedProduct, setSelectedProrduct] = useState<GetByIdProductResponse>({})
+
+    const fetchData = async () => {
+        const data: GetByIdProductResponse = await productService.getByIdProduct({ id: productId })
+        setSelectedProrduct(data)
+    }
+    useEffect(() => {
+
+        fetchData()
+
+    }, [])
 
     const fileSelectedHandler = (event: ChangeEvent<HTMLInputElement>) => {
         if (event.target.files) {
@@ -24,11 +37,31 @@ function ImageForm({ productId }: IProps) {
     }
     const fileSender = async () => {
         await productService.uploadFile(productId, selectedFile as FileList)
-
+        await fetchData()
     }
-   
+
     return (
         <Container>
+
+            <Row>
+
+                {
+                    selectedProduct.product?.productFiles
+                        ? selectedProduct.product?.productFiles.map((item, index) => (
+
+
+                            <Col key={index} xs={6} md={4} lg={2}>
+                                <Image src={API_ROOT_PATH + item.path} rounded width={100} />
+                            </Col>
+
+
+                        ))
+                        : <></>
+                }
+
+            </Row>
+
+            <hr />
 
             <Form.Group controlId="formFileMultiple" className="mb-3">
                 <Form.Label>Yükleyeceğiniz Resmi Ya Da Ressimleri Seiçiniz</Form.Label>
