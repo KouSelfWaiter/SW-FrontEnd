@@ -17,4 +17,10 @@ export enum ToastrMessageEnum{
     GetAllCategoriesSuccess = "Kategoriler Başarılı Bir Şekilde Getirildi.",
     GetAllCategoriesError = "Kategoriler Getirilirken Bir Hata İle Karşılaşıldı.",
 
+    UpdateProductSuccess = "Ürün Başarılı Bir Şekilde Güncellendi.",
+    UpdateProductError = "Ürün Güncellenirke Bir Hata İle Karşılaşıldı.",
+
+    CreateProductTranslationSuccess = "Ürüne Dil Ekleme İşlemi Başarılı Şekilde Gerçekleştirildi.",
+    CreateProductTranslationError = "Ürüne Dil Ekleme İşlemi Gerçekleşirken Bir Hata İle Karşılaşıldı."
+
 }

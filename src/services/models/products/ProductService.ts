@@ -6,6 +6,9 @@ import { HttpServiceClient } from "../../HttpServiceClient";
 import AddProductRequest from '../../../contracts/products/addProducts/AddProductRequest';
 import { errorToastr, successToastr } from '../../ToastrServiceClient';
 import { ToastrMessageEnum } from '../../../enums/toastrMessagEnum/ToastrMessageEnum';
+import UpdateProductRequest from '../../../contracts/products/updateProduct/UpdateProductRequest';
+import CreateProductTranslationRequest from '../../../contracts/products/createProductTranslation/CreateProductTranslationRequest';
+import axios, { AxiosError } from 'axios';
 
 export default class ProductService{
 
@@ -48,5 +51,51 @@ export default class ProductService{
         }
 
     }
+
+    async updateProduct(updateProductRequest:Partial<UpdateProductRequest>):Promise<void>{
+
+        try {
+            await this.httpService.putAsync<UpdateProductRequest>({
+                controller:"Products"
+            }, updateProductRequest)
+
+            successToastr({content:ToastrMessageEnum.UpdateProductSuccess})
+            
+        } catch (error) {
+
+            errorToastr({content:ToastrMessageEnum.UpdateProductError})
+            
+        }
+
+    }
+
+    async createProductTranslation(createProductTranslationReqest: Partial<CreateProductTranslationRequest>):Promise<any>{
+
+        try {
+            await this.httpService.postAsync<CreateProductTranslationRequest>({
+                action:"CreateProductTranslation",
+                controller:"Products"
+            }, createProductTranslationReqest)
+
+            successToastr({content:ToastrMessageEnum.CreateProductTranslationSuccess})
+            
+        } catch (error) {
+            if (axios.isAxiosError(error)) {
+                if(error.response?.status.toString() === "500"){
+                    errorToastr({content:  error.response.data["Message"] as string})              
+                }else{
+                    errorToastr({content:ToastrMessageEnum.CreateProductTranslationError})
+
+                }
+                
+              }else{
+                errorToastr({content:ToastrMessageEnum.CreateProductTranslationError})
+              }  
+        }
+
+    }
+
+
+    
 
 }

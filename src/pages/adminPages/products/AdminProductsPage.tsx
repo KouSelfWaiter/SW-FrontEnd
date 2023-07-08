@@ -30,7 +30,11 @@ function AdminProductsPage() {
   }, [])
 
   const navigateToAddProduct = () => {
-    navigate("add")
+    navigate("/admin/products/add")
+  }
+
+  const navigateToDetails = (id:string)=> {
+    navigate(`/admin/products/details/${id}`)
   }
 
   return (
@@ -60,7 +64,7 @@ function AdminProductsPage() {
                       <td>{item.translation ? item.translation[0].name : ""}</td>
                       <td>{item.translation ? item.translation[0].description : ""}</td>
                       <td>{item.price} TL</td>
-                      <td><i className="bi bi-ticket-detailed-fill custom-icon"></i></td>
+                      <td><i className="bi bi-ticket-detailed-fill custom-icon" onClick={()=> navigateToDetails(item.id as string)}></i></td>
                       <td><i className="bi bi-x-circle-fill custom-icon"></i></td>
                     </tr>
 

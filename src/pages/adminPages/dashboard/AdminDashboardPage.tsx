@@ -7,6 +7,7 @@ import AdminGraphicPage from '../graphic/AdminGraphicPage';
 import './AdminDashboardPage.css'
 import AdminProductsPage from '../products/AdminProductsPage';
 import AdminAddProductPage from '../products/addProducts/AdminAddProductPage';
+import AdminProductDetailsPage from '../products/productDetails/AdminProductDetailsPage';
 function AdminDashboardPage() {
     const navigate = useNavigate()
     const [activeIndex, setActiveIndex] = useState<number>(0);
@@ -40,10 +41,12 @@ function AdminDashboardPage() {
 
                 <div className="col-lg-10 col-md-10 col-sm-12 col-12">
                     <Routes>
-                        <Route path="*" element={<AdminGraphicPage />} />
+                      
                         <Route path="orders" element={<AdminOrdersPage />} />
                         <Route path="products" element={<AdminProductsPage />} />
                         <Route path="products/add" element={<AdminAddProductPage />} />
+                        <Route path="products/details/:id" element={<AdminProductDetailsPage />} />
+                        <Route path="*" element={<AdminGraphicPage />} />
                     </Routes>
                 </div>
 
