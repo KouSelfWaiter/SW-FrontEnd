@@ -13,6 +13,7 @@ import GetAllCategoriesResponse from '../../../../contracts/categories/getAllCat
 import CustomDialog from '../../../../components/dialog/CustomDialog';
 import { GetByIdProductResponse } from '../../../../contracts/products/getByIdProduct/GetByIdProductResponse';
 import TranslationForm from '../../../../components/translationForm/TranslationForm';
+import ImageForm from '../../../../components/imageForm/ImageForm';
 
 
 interface IFormValues {
@@ -37,11 +38,16 @@ function AdminProductDetailsPage() {
     const [categories, setCategories] = useState<GetAllCategoriesResponse[]>([])
     const [productResponse, setProductResponse] = useState<GetByIdProductResponse>({})
     const [translationModalOpen, setTranslationModalOpen] = useState<boolean>(false);
+    const [fileModalOpen, setFileModalOpen] = useState<boolean>(false);
 
     const navigate = useNavigate()
 
     const handleTranslationModalClose = () => {
         setTranslationModalOpen(false);
+    };
+
+    const handleFileModalClose = () => {
+        setFileModalOpen(false);
     };
 
     let initialValues: IFormValues = {
@@ -178,13 +184,18 @@ function AdminProductDetailsPage() {
                 </Col>
                 <Col>
                     <h3>Ürüne Fotoğraf Ekleme</h3>
-                    <Button variant='danger' onClick={() => setTranslationModalOpen(true)}>Fotoğraf</Button>
+                    <Button variant='danger' onClick={() => setFileModalOpen(true)}>Fotoğraf</Button>
                 </Col>
             </Row>
 
 
             <CustomDialog show={translationModalOpen} onHide={handleTranslationModalClose} bodyTitle='Ürün Dil Seçenekleri (Eklenme)' title='Dil Ayarları'>
                 <TranslationForm productId={id as string}/>
+            </CustomDialog>
+
+            <CustomDialog show={fileModalOpen} onHide={handleFileModalClose}
+             bodyTitle={productResponse.product?.translation ? productResponse.product?.translation[0].name + " Adlı Ürünün Görselleri" : ""} title='Ürün Görselleri'>
+                <ImageForm productId={id as string}/>
             </CustomDialog>
 
 
