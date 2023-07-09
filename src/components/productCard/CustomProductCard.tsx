@@ -16,6 +16,8 @@ import toast from 'react-hot-toast';
 import { errorToastr, infoToastr, successToastr } from '../../services/ToastrServiceClient';
 import { ToastrMessageEnum } from '../../enums/toastrMessagEnum/ToastrMessageEnum';
 import CustomPagination from '../pagination/CustomPagination';
+import GetAllCategoriesResponse from '../../contracts/categories/getAllCategories/GetAllCategoriesResponse';
+import CategoryService from '../../services/models/categories/CategoryService';
 
 
 
@@ -26,20 +28,26 @@ const CustomProductCard: React.FC = () => {
   const [productResponse, setProductResponse] = useState<GetAllProductsResponse>({})
   const loadingContextData = useLoading()
 
+  const [categoryResponse, setCategoryResponse] = useState<GetAllCategoriesResponse[]>([])
+
   const [currentPage, setCurrentPage] = useState<number>(1);
   const maxSize: number = 12
 
-  const fetchData = async (page:number) => {
+  const fetchData = async (page: number) => {
     const productService: ProductService = new ProductService()
     loadingContextData.setLoadingProgress(true)
-    let data: GetAllProductsResponse = await productService.getAllProducts({ page: page-1, size: maxSize })
-    loadingContextData.setLoadingProgress(false)
+    let data: GetAllProductsResponse = await productService.getAllProducts({ page: page - 1, size: maxSize })
+
     setProductResponse(data)
+
+    const categoryService: CategoryService = new CategoryService()
+    const data2: GetAllCategoriesResponse[] = await categoryService.getAllCategories()
+    setCategoryResponse(data2 as GetAllCategoriesResponse[])
+
+    loadingContextData.setLoadingProgress(false)
   }
 
   useEffect(() => {
- 
-
     fetchData(currentPage)
   }, [])
 
@@ -113,16 +121,35 @@ const CustomProductCard: React.FC = () => {
             natus expedita non? Odio, dolorum.
           </p>
           <div className="food-category">
+
             <div className="zoom play-on-scroll">
               <button
                 className={`active ${activeFoodType === "all" ? "active" : ""}`}
                 data-food-type="all"
                 onClick={handleFoodTypeClick}
               >
-                All food
+                Tüm İçerikler
               </button>
             </div>
-            <div className="zoom play-on-scroll delay-2">
+
+            {
+              categoryResponse.map((item, index) => (
+
+                <div key={index} className="zoom play-on-scroll">
+                  <button
+                    className={`active ${activeFoodType === "all" ? "active" : ""}`}
+                    data-food-type="all"
+                    onClick={handleFoodTypeClick}
+                  >
+                    {item.translations ? item.translations[0].name : ""}
+                  </button>
+                </div>
+
+              ))
+            }
+
+
+            {/* <div className="zoom play-on-scroll delay-2">
               <button
                 className={activeFoodType === "salad" ? "active" : ""}
                 data-food-type="salad"
@@ -157,7 +184,7 @@ const CustomProductCard: React.FC = () => {
               >
                 Dolor
               </button>
-            </div>
+            </div> */}
           </div>
 
           <br />
@@ -185,22 +212,22 @@ const CustomProductCard: React.FC = () => {
 
 
 
-            <CustomPagination
-              currentPage={currentPage}
-              total={productResponse.totalCount as number}
-              limit={maxSize}
-              onPageChange={async (page: number) => {
-                setCurrentPage(page)
-                await fetchData(page)
-              }}
-            />
+
 
 
 
           </div>
 
 
-
+          <CustomPagination
+            currentPage={currentPage}
+            total={productResponse.totalCount as number}
+            limit={maxSize}
+            onPageChange={async (page: number) => {
+              setCurrentPage(page)
+              await fetchData(page)
+            }}
+          />
 
 
         </div>
