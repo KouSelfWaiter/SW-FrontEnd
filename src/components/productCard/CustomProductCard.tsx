@@ -32,7 +32,7 @@ const CustomProductCard: React.FC = () => {
 
   const [currentPage, setCurrentPage] = useState<number>(1);
   const maxSize: number = 12
-
+  const [currentCategory,setcurrentCategory]=useState("");
   const fetchData = async (page: number) => {
     const productService: ProductService = new ProductService()
     loadingContextData.setLoadingProgress(true)
@@ -96,7 +96,10 @@ const CustomProductCard: React.FC = () => {
     currCat?.classList.remove("active");
     e.currentTarget.classList.add("active");
     setActiveFoodType(e.currentTarget.getAttribute("data-food-type") || "all");
+    
+  setcurrentCategory(e.currentTarget.getAttribute("data-category")||"all")
   };
+  
 
   const addBasketItem = async (addBasketItem: Partial<AddBasketItemRequest>) => {
     await basketService.addBasketItem(addBasketItem)
@@ -122,11 +125,13 @@ const CustomProductCard: React.FC = () => {
           </p>
           <div className="food-category">
 
-            <div className="zoom play-on-scroll">
+            <div className=" play-on-scroll">
               <button
-                className={`active ${activeFoodType === "all" ? "active" : ""}`}
+                 className={` ${activeFoodType === "all" ? "active" : ""}`}
                 data-food-type="all"
+                data-category=""
                 onClick={handleFoodTypeClick}
+                
               >
                 Tüm İçerikler
               </button>
@@ -135,13 +140,15 @@ const CustomProductCard: React.FC = () => {
             {
               categoryResponse.map((item, index) => (
 
-                <div key={index} className="zoom play-on-scroll">
+                <div key={index} className="play-on-scroll">
                   <button
-                    className={`active ${activeFoodType === "all" ? "active" : ""}`}
-                    data-food-type="all"
+                    className={` ${activeFoodType === item.translations[0].name ? "active" : ""}`}
+                    data-food-type= {item.translations ? item.translations[0].name : ""}
+                    data-category={item.id}
                     onClick={handleFoodTypeClick}
                   >
                     {item.translations ? item.translations[0].name : ""}
+                 
                   </button>
                 </div>
 
@@ -190,10 +197,10 @@ const CustomProductCard: React.FC = () => {
           <br />
 
           <div className='row'>
-            {productResponse.products?.map((item) => (
-              <div key={item.id} className='col-lg-3 col-md-4 col-sm-6 col-12'>
+            {productResponse.products?.filter(item=>item.categoryId==(currentCategory=="" ? item.categoryId:currentCategory)).map((item) => (
+              <div key={item.id}  className={`col-lg-3 col-md-4 col-sm-6 col-12 food-item ${item.translation ? item.categoryId:""}-type`} >
                 <Card style={{ width: '14rem' }}>
-                  {
+                  { 
                     item.productFiles
                       ? <Card.Img variant="top" src={item.productFiles?.length > 0 ? (API_ROOT_PATH + item.productFiles[0].path) : DEFAULT_IMAGE_PATH} />
                       : <Card.Img variant="top" src={DEFAULT_IMAGE_PATH} />
