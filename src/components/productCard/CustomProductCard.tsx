@@ -97,7 +97,7 @@ const CustomProductCard: React.FC = () => {
     e.currentTarget.classList.add("active");
     setActiveFoodType(e.currentTarget.getAttribute("data-food-type") || "all");
     
-  setcurrentCategory(e.currentTarget.getAttribute("data-category")||"all")
+  setcurrentCategory(e.currentTarget.getAttribute("data-category")||"")
   };
   
 
