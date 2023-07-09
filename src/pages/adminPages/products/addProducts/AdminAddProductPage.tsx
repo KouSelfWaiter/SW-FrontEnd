@@ -60,7 +60,10 @@ function AdminAddProductPage() {
             translationCode: parseInt(values.translationCode)
         })
 
-        formikHelper.resetForm()
+        formik.values.description = ""
+        formik.values.name = ""
+        formik.values.price = 0
+        
 
     }
 
@@ -134,7 +137,9 @@ function AdminAddProductPage() {
                     
                 >
                 <Form.Select name='categoryId' onChange={formik.handleChange}>
-                    {
+                    <option value={""}>Lütfen Kategori Seiçiniz</option>
+
+                    {    
                         categories.map(item => (
                             <option value={item.id}>{item.translations[0].name}</option>
                         ))  
