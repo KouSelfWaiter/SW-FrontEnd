@@ -9,6 +9,7 @@ import { ToastrMessageEnum } from '../../../enums/toastrMessagEnum/ToastrMessage
 import UpdateProductRequest from '../../../contracts/products/updateProduct/UpdateProductRequest';
 import CreateProductTranslationRequest from '../../../contracts/products/createProductTranslation/CreateProductTranslationRequest';
 import axios, { AxiosError } from 'axios';
+import DeleteProductRequest from '../../../contracts/products/deleteProduct/DeleteProductRequest';
 
 export default class ProductService {
 
@@ -52,6 +53,20 @@ export default class ProductService {
 
     }
 
+    async deleteProduct(deleteProductRequest:Partial<DeleteProductRequest>):Promise<void>{
+        try {
+            await this.httpService.deleteAsync({
+                controller:"Products"
+            }, deleteProductRequest.id as string)
+
+            successToastr({ content: ToastrMessageEnum.DeleteProductSucess })
+
+            
+        } catch (error) {
+            errorToastr({ content: ToastrMessageEnum.DeleteProductError })
+            
+        }
+    }
     async updateProduct(updateProductRequest: Partial<UpdateProductRequest>): Promise<void> {
 
         try {
@@ -109,10 +124,10 @@ export default class ProductService {
                 queryString: `productId=${productId}`
             }, fd)
 
-            successToastr({ content: ToastrMessageEnum.CreateProductTranslationSuccess })
+            successToastr({ content: ToastrMessageEnum.UploadImageSucess })
 
         } catch (error) {
-            errorToastr({ content: ToastrMessageEnum.CreateProductTranslationError })
+            errorToastr({ content: ToastrMessageEnum.UploadImageError })
         }
     }
 

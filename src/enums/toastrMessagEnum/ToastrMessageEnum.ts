@@ -21,6 +21,13 @@ export enum ToastrMessageEnum{
     UpdateProductError = "Ürün Güncellenirke Bir Hata İle Karşılaşıldı.",
 
     CreateProductTranslationSuccess = "Ürüne Dil Ekleme İşlemi Başarılı Şekilde Gerçekleştirildi.",
-    CreateProductTranslationError = "Ürüne Dil Ekleme İşlemi Gerçekleşirken Bir Hata İle Karşılaşıldı."
+    CreateProductTranslationError = "Ürüne Dil Ekleme İşlemi Gerçekleşirken Bir Hata İle Karşılaşıldı.",
+
+    UploadImageSucess = "Ressim Yükleme İşlemi Başarılı.",
+    UploadImageError = "Ressim Yükleme İşlemi Yapılırken Bir Hata İle Karşılaşıldı.",
+
+    DeleteProductSucess = "Ürün Silme İşlemi Başarılı.",
+    DeleteProductError = "Ürün Silme İşlemi Yapılırken Bir Hata İle Karşılaşıldı.",
+
 
 }

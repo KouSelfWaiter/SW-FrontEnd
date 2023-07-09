@@ -8,6 +8,7 @@ import ProductNotFoundAlert from '../../../components/alert/productAlert/Product
 import Button from 'react-bootstrap/Button';
 import { useNavigate } from 'react-router-dom';
 import CustomPagination from '../../../components/pagination/CustomPagination';
+import $ from 'jquery'
 
 function AdminProductsPage() {
   const [productResponse, setProductResponse] = useState<GetAllProductsResponse>({})
@@ -37,6 +38,14 @@ function AdminProductsPage() {
     navigate(`/admin/products/details/${id}`)
   }
 
+  const deleteProduct = async (id:string)=>{
+    await productService.deleteProduct({id:id})
+    const updatedData =  productResponse.products?.filter(item => item.id !== id)
+    $(`#item-${id}`).fadeOut(500,  () => {
+      
+    });
+  }
+
   return (
     <div>
 
@@ -59,13 +68,13 @@ function AdminProductsPage() {
                 {
                   productResponse.products.map((item, index) => (
 
-                    <tr key={index}>
+                    <tr key={index} id={"item-"+item.id}>
                       <td>{index + 1}</td>
                       <td>{item.translation ? item.translation[0].name : ""}</td>
                       <td>{item.translation ? item.translation[0].description : ""}</td>
                       <td>{item.price} TL</td>
                       <td><i className="bi bi-ticket-detailed-fill custom-icon" onClick={()=> navigateToDetails(item.id as string)}></i></td>
-                      <td><i className="bi bi-x-circle-fill custom-icon"></i></td>
+                      <td><i className="bi bi-x-circle-fill custom-icon" onClick={()=> deleteProduct(item.id as string)}></i></td>
                     </tr>
 
 
