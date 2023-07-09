@@ -8,6 +8,7 @@ import './AdminDashboardPage.css'
 import AdminProductsPage from '../products/AdminProductsPage';
 import AdminAddProductPage from '../products/addProducts/AdminAddProductPage';
 import AdminProductDetailsPage from '../products/productDetails/AdminProductDetailsPage';
+import AdminCategoriesPage from '../categories/AdminCategoriesPage';
 function AdminDashboardPage() {
     const navigate = useNavigate()
     const [activeIndex, setActiveIndex] = useState<number>(0);
@@ -33,7 +34,7 @@ function AdminDashboardPage() {
                         <ListGroup.Item  action onClick={()=> goToClickedArea("products", 2)} className={activeIndex === 2 ? 'activeColor' : "" }>
                             Ürünler
                         </ListGroup.Item>
-                        <ListGroup.Item  action disabled>
+                        <ListGroup.Item  action  onClick={()=> goToClickedArea("categories", 3)} className={activeIndex === 3 ? 'activeColor' : "" }>
                             Kategoriler
                         </ListGroup.Item>
                     </ListGroup>
@@ -43,6 +44,7 @@ function AdminDashboardPage() {
                     <Routes>
                       
                         <Route path="orders" element={<AdminOrdersPage />} />
+                        <Route path="categories" element={<AdminCategoriesPage />} />
                         <Route path="products" element={<AdminProductsPage />} />
                         <Route path="products/add" element={<AdminAddProductPage />} />
                         <Route path="products/details/:id" element={<AdminProductDetailsPage />} />
