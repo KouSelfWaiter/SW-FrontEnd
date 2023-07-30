@@ -22,6 +22,7 @@ import ProductsPage from '../../pages/productsPage/ProductsPage';
 import CustomerOrdersPage from '../../pages/orders/CustomerOrdersPage';
 import AdminOrdersPage from '../../pages/adminPages/orders/AdminOrdersPage';
 import AdminDashboardPage from '../../pages/adminPages/dashboard/AdminDashboardPage';
+import AdminLoginPage from '../../pages/adminPages/loginPage/AdminLoginPage';
 
 function CustomNavbar() {
   const navigate = useNavigate();
@@ -71,6 +72,7 @@ function CustomNavbar() {
               </Nav.Link>
 
               <Nav.Link><CustomLink to={"/admin/*"}>Admin</CustomLink></Nav.Link>
+              <Nav.Link><CustomLink to={"/login"}>Giriş</CustomLink></Nav.Link>
 
             </Nav>
             
@@ -94,6 +96,7 @@ function CustomNavbar() {
 
       <Routes>
         <Route path='/food-menu-section' element={<ProductsPage />} />
+        <Route path='/login' element={<AdminLoginPage />} />
         <Route path="/products/:id" element={<ProductDetailPage />} />
         <Route path='/' element={<Home />} />
         <Route path='/basket/:id' element={<BasketPage />} />
