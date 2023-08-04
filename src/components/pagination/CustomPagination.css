@@ -23,8 +23,8 @@
     z-index: 2;
     color: #fff;
     cursor: default;
-    background-color: #633d0f;
-    border-color: #633d0f;
+    background-color: rgb(255, 79, 79);
+    border-color: rgb(255, 79, 79);
   }
   .page-item.disabled .page-link,
   .page-item.disabled .page-link:focus,

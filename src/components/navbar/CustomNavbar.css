@@ -1,13 +1,18 @@
 
 .customColor{
 
-  background-color:  #808080;
+  background-color:  #ef6551;
 }
 
 .custom-icon {
   font-size: 30px !important;
-  margin-right: 20px !important;
+  display: block;
 }
+.custom-icon-for-mobile {
+  display: none;
+  font-size: 30px !important;
+}
+
 
 .custom-button {
   --c:  #613a22; /* the color*/
@@ -44,3 +49,22 @@
   color: white;
   
 }
+.customToggler{
+  border: none !important;
+}
+.customToggler:focus{
+  box-shadow: 1px 2px red !important;
+}
+@media only screen and (max-width: 600px)  {
+  .custom-icon-for-mobile {
+    display: inline;
+    font-size: 30px !important;
+    margin-right: 10px;
+  }
+  .custom-icon {
+    display: none;
+    font-size: 30px !important;
+  }
+}
+
+  

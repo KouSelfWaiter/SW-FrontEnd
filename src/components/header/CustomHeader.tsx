@@ -2,11 +2,7 @@ import React, { useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Carousel from 'react-bootstrap/Carousel';
 // import "./CustomNavbar.css"
-import "./CustomHeader.css"
-import imgHeader from './header.jpg';
-import imgHeader2 from './header2.jpg';
-import imgHeader3 from './header3.jpg';
-
+import "./CustomHeader.css";
 function CustomHeader() {
 
   return(
@@ -14,7 +10,7 @@ function CustomHeader() {
     <Carousel.Item>
       <img
         className="d-block w-100"
-        src={imgHeader}
+        src={"https://images.theconversation.com/files/439369/original/file-20220104-19-12kg47e.jpg?ixlib=rb-1.1.0&rect=231%2C23%2C5094%2C2547&q=45&auto=format&w=1356&h=668&fit=crop"}
         alt="First slide"
       />
       <Carousel.Caption>
@@ -26,7 +22,7 @@ function CustomHeader() {
     <Carousel.Item>
       <img
         className="d-block w-100"
-        src={imgHeader2}
+        src={"https://www.kahveler.com/wp-content/uploads/2019/07/milkshake.png"}
         alt="Second slide"
         
       />
@@ -40,7 +36,7 @@ function CustomHeader() {
     <Carousel.Item>
       <img
         className="d-block w-100"
-        src={imgHeader}
+        src={"https://insanelygoodrecipes.com/wp-content/uploads/2020/07/Sweet-Colorful-Macarons.jpg"}
         alt="Third slide"
       />
 
