@@ -29,5 +29,6 @@ export enum ToastrMessageEnum{
     DeleteProductSucess = "Ürün Silme İşlemi Başarılı.",
     DeleteProductError = "Ürün Silme İşlemi Yapılırken Bir Hata İle Karşılaşıldı.",
 
-
+    LoginSucess = "Giriş Başarılı.",
+    LoginError = "Kullanıcı Adı Ya Da Şifre Hatalı.",
 }

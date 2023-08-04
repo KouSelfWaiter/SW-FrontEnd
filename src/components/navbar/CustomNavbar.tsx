@@ -7,6 +7,7 @@ import CustomProductCard from "../productCard/CustomProductCard";
 import Home from "../../pages/home/HomePage";
 import ProductDetailPage from "../../pages/productDetail/ProductDetailPage";
 
+<<<<<<< HEAD
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
@@ -23,6 +24,24 @@ import CustomerOrdersPage from "../../pages/orders/CustomerOrdersPage";
 import AdminOrdersPage from "../../pages/adminPages/orders/AdminOrdersPage";
 import AdminDashboardPage from "../../pages/adminPages/dashboard/AdminDashboardPage";
 import "remixicon/fonts/remixicon.css";
+=======
+import Button from 'react-bootstrap/Button';
+import Container from 'react-bootstrap/Container';
+import Form from 'react-bootstrap/Form';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import NavDropdown from 'react-bootstrap/NavDropdown';
+import ProductService from '../../services/models/products/ProductService';
+import GetAllProductsResponse from '../../contracts/products/getAllProducts/GetAllProductsResponse';
+import BasketPage from '../../pages/basket/BasketPage';
+import BasketService from '../../services/models/baskets/BasketService';
+import GetActiveBasketIdResponse from '../../contracts/baskets/getActiveBasketId/GetActiveBasketIdResponse';
+import ProductsPage from '../../pages/productsPage/ProductsPage';
+import CustomerOrdersPage from '../../pages/orders/CustomerOrdersPage';
+import AdminOrdersPage from '../../pages/adminPages/orders/AdminOrdersPage';
+import AdminDashboardPage from '../../pages/adminPages/dashboard/AdminDashboardPage';
+import AdminLoginPage from '../../pages/adminPages/loginPage/AdminLoginPage';
+>>>>>>> c6b615467e4e38f4c5c5c6d545b0fe467cb4971a
 
 function CustomNavbar() {
   const navigate = useNavigate();
@@ -80,7 +99,12 @@ function CustomNavbar() {
                 <CustomLink to={"/orders"}>Siparişler</CustomLink>
               </Nav.Link>
 
+<<<<<<< HEAD
               {/* <Nav.Link disabled>Yakında Hizmetinizde</Nav.Link> */}
+=======
+              <Nav.Link><CustomLink to={"/admin/*"}>Admin</CustomLink></Nav.Link>
+              <Nav.Link><CustomLink to={"/login"}>Giriş</CustomLink></Nav.Link>
+>>>>>>> c6b615467e4e38f4c5c5c6d545b0fe467cb4971a
 
               <Nav.Link>
                 <CustomLink to={"/admin/*"}>Admin</CustomLink>
@@ -96,7 +120,12 @@ function CustomNavbar() {
       </Navbar>
 
       <Routes>
+<<<<<<< HEAD
         <Route path="/food-menu-section" element={<ProductsPage />} />
+=======
+        <Route path='/food-menu-section' element={<ProductsPage />} />
+        <Route path='/login' element={<AdminLoginPage />} />
+>>>>>>> c6b615467e4e38f4c5c5c6d545b0fe467cb4971a
         <Route path="/products/:id" element={<ProductDetailPage />} />
         <Route path="/" element={<Home />} />
         <Route path="/basket/:id" element={<BasketPage />} />
