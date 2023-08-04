@@ -23,7 +23,10 @@ function AdminDashboardPage() {
         <div>
 
             <div className="row">
+
                 <div className="col-lg-2 col-md-2 col-sm-12 col-12">
+                <div className="customSidebar">
+                    
                     <ListGroup>
                         <ListGroup.Item  action onClick={()=> goToClickedArea("*", 0)} className={activeIndex === 0 ? 'activeColor' : "" } >
                             Gösterge Paneli
@@ -38,6 +41,7 @@ function AdminDashboardPage() {
                             Kategoriler
                         </ListGroup.Item>
                     </ListGroup>
+                    </div>
                 </div>
 
                 <div className="col-lg-10 col-md-10 col-sm-12 col-12">

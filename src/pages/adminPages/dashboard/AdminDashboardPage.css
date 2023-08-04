@@ -1,4 +1,9 @@
 .activeColor{
-    background-color: rgb(95, 87, 77) !important;
+    background-color: #f8a399 !important;
     color: white !important;
+    padding: 1rem 0;
+}
+.customSidebar{
+    height: calc(100vh - 76px);
+    max-width: 90%;
 }
