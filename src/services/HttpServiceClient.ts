@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from "axios"
+import axios, { AxiosRequestConfig, AxiosResponse } from "axios"
 
 
 
@@ -11,17 +11,27 @@ export class HttpServiceClient{
         return `${requestParameters.baseUrl ? requestParameters.baseUrl : this.baseUrl}/${requestParameters.
           controller}${requestParameters.action ? `/${requestParameters.action}` : ""}`
       }
+    
+    private getToken(config: AxiosRequestConfig){
+      const token = localStorage.getItem('accessToken');
+      if (token) {
+        config = config || {};
+        config.headers = config.headers || {};
+        config.headers['Authorization'] = `Bearer ${token}`;
+      }
 
+      return config
+    }
+    
     async getAsync<T>(requestParameters: Partial<RequestParameters>, id?:string):Promise<T>{
 
         let url:string = ""
-
         if(requestParameters.fullEndPoint)
             url = requestParameters.fullEndPoint
         else
         url = `${this.url(requestParameters)}${id ? `/${id}` : ""}${requestParameters.queryString ? `?${requestParameters.queryString}` : ""}`
 
-        const response: AxiosResponse<T> = await axios.get<T>(url, {headers: requestParameters.headers})
+        const response: AxiosResponse<T> = await axios.get<T>(url, this.getToken(requestParameters.headers))
 
         return response.data;
     }
