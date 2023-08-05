@@ -44,7 +44,7 @@ export class HttpServiceClient{
       else
         url = `${this.url(requestParameters)}${requestParameters.queryString ? `?${requestParameters.queryString}` : ""}`
 
-      const response: AxiosResponse<T> = await axios.post<T>(url, body, {headers: requestParameters.headers})
+      const response: AxiosResponse<T> = await axios.post<T>(url, body, this.getToken(requestParameters.headers))
 
       return response.data
 
@@ -57,7 +57,7 @@ export class HttpServiceClient{
       else
         url = `${this.url(requestParameters)}${requestParameters.queryString ? `?${requestParameters.queryString}` : ""}`
 
-      const response: AxiosResponse<T> = await axios.put<T>(url, body, {headers: requestParameters.headers})
+      const response: AxiosResponse<T> = await axios.put<T>(url, body, this.getToken(requestParameters.headers))
 
       return response.data
 
@@ -71,7 +71,7 @@ export class HttpServiceClient{
       else
       url = `${this.url(requestParameters)}/${id}${requestParameters.queryString ? `?${requestParameters.queryString}` : ""}`
 
-      const response: AxiosResponse<T> = await axios.delete<T>(url, {headers: requestParameters.headers})
+      const response: AxiosResponse<T> = await axios.delete<T>(url, this.getToken(requestParameters.headers))
 
       return response.data
 
