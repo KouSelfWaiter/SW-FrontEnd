@@ -19,8 +19,7 @@ const range = (start:number, end:number) => {
 const getPagesCut = ({ pagesCount, pagesCutCount, currentPage }:any) => {
   const ceiling = Math.ceil(pagesCutCount / 2);
   const floor = Math.floor(pagesCutCount / 2);
-  console.log("ceiling", ceiling);
-  console.log("floor", floor);
+
 
   if (pagesCount < pagesCutCount) {
     return { start: 1, end: pagesCount + 1 };

@@ -1,5 +1,6 @@
 import GetAllCategoriesResponse from "../../../contracts/categories/getAllCategories/GetAllCategoriesResponse";
 import { ToastrMessageEnum } from "../../../enums/toastrMessagEnum/ToastrMessageEnum";
+import handleFetchError from "../../../globalFetchError/GlobalFetchError";
 import { HttpServiceClient } from "../../HttpServiceClient";
 import { errorToastr, successToastr } from "../../ToastrServiceClient";
 
@@ -17,7 +18,7 @@ export default class CategoryService{
             
         } catch (error) {
 
-            errorToastr({content:ToastrMessageEnum.GetAllCategoriesError})
+            handleFetchError(error)
             
         }
     }

@@ -10,30 +10,44 @@ import UpdateProductRequest from '../../../contracts/products/updateProduct/Upda
 import CreateProductTranslationRequest from '../../../contracts/products/createProductTranslation/CreateProductTranslationRequest';
 import axios, { AxiosError } from 'axios';
 import DeleteProductRequest from '../../../contracts/products/deleteProduct/DeleteProductRequest';
+import handleFetchError from '../../../globalFetchError/GlobalFetchError';
 
 export default class ProductService {
 
     httpService: HttpServiceClient = new HttpServiceClient()
 
 
-    async getAllProducts(getAllProductsRequest: Partial<GetAllProductsRequest>): Promise<GetAllProductsResponse> {
+    async getAllProducts(getAllProductsRequest: Partial<GetAllProductsRequest>): Promise<GetAllProductsResponse|any> {
 
-        const promisData: GetAllProductsResponse = await this.httpService.getAsync<GetAllProductsResponse>({
-            controller: "Products",
-            queryString: `page=${getAllProductsRequest.page}&size=${getAllProductsRequest.size}`,
-
-        })
-
-        return promisData
+        try {
+            const promisData: GetAllProductsResponse = await this.httpService.getAsync<GetAllProductsResponse>({
+                controller: "Products",
+                queryString: `page=${getAllProductsRequest.page}&size=${getAllProductsRequest.size}`,
+    
+            })
+            return promisData
+        } catch (error) {
+            handleFetchError(error)
+        }
     }
 
     async getByIdProduct(getProductByIdRequest: Partial<GetByIdProductRequest>): Promise<GetByIdProductResponse> {
 
-        const promiseData: GetByIdProductResponse = await this.httpService.getAsync<GetByIdProductResponse>({
-            controller: "Products",
-        }, getProductByIdRequest.id)
+        try {
 
-        return promiseData
+            const promiseData: GetByIdProductResponse = await this.httpService.getAsync<GetByIdProductResponse>({
+                controller: "Products",
+            }, getProductByIdRequest.id)
+
+            return promiseData
+            
+        } catch (error) {
+
+            handleFetchError(error)
+            
+        }
+
+        return new GetByIdProductResponse()
     }
 
     async addProduct(addProductRequest: Partial<AddProductRequest>) {
@@ -47,7 +61,7 @@ export default class ProductService {
 
         } catch (error) {
 
-            errorToastr({ content: ToastrMessageEnum.AddProductError })
+            handleFetchError(error)
 
         }
 
@@ -63,8 +77,7 @@ export default class ProductService {
 
             
         } catch (error) {
-            errorToastr({ content: ToastrMessageEnum.DeleteProductError })
-            
+            handleFetchError(error)       
         }
     }
     async updateProduct(updateProductRequest: Partial<UpdateProductRequest>): Promise<void> {
@@ -78,7 +91,7 @@ export default class ProductService {
 
         } catch (error) {
 
-            errorToastr({ content: ToastrMessageEnum.UpdateProductError })
+            handleFetchError(error)
 
         }
 
@@ -95,17 +108,7 @@ export default class ProductService {
             successToastr({ content: ToastrMessageEnum.CreateProductTranslationSuccess })
 
         } catch (error) {
-            if (axios.isAxiosError(error)) {
-                if (error.response?.status.toString() === "500") {
-                    errorToastr({ content: error.response.data["Message"] as string })
-                } else {
-                    errorToastr({ content: ToastrMessageEnum.CreateProductTranslationError })
-
-                }
-
-            } else {
-                errorToastr({ content: ToastrMessageEnum.CreateProductTranslationError })
-            }
+            handleFetchError(error)
         }
 
     }
@@ -127,7 +130,7 @@ export default class ProductService {
             successToastr({ content: ToastrMessageEnum.UploadImageSucess })
 
         } catch (error) {
-            errorToastr({ content: ToastrMessageEnum.UploadImageError })
+            handleFetchError(error)
         }
     }
 

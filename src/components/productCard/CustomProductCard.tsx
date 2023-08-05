@@ -46,7 +46,7 @@ const CustomProductCard: React.FC = () => {
       page: page - 1,
       size: maxSize,
     });
-
+    
     setProductResponse(data);
 
     const categoryService: CategoryService = new CategoryService();

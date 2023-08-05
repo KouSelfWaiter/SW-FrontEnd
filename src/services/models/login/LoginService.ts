@@ -1,6 +1,7 @@
 import LoginRequest from "../../../contracts/login/LoginRequest";
 import LoginResponse from "../../../contracts/login/LoginResponse";
 import { ToastrMessageEnum } from "../../../enums/toastrMessagEnum/ToastrMessageEnum";
+import handleFetchError from "../../../globalFetchError/GlobalFetchError";
 import { HttpServiceClient } from "../../HttpServiceClient";
 import { errorToastr, successToastr } from "../../ToastrServiceClient";
 
@@ -21,7 +22,7 @@ export default class LoginService{
             return promiseData
             
         } catch (error) {      
-            errorToastr({content:ToastrMessageEnum.LoginError})
+            handleFetchError(error)
         }
     }
     

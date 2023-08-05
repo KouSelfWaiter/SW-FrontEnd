@@ -3,6 +3,7 @@ import completeOrderRequest from "../../../contracts/orders/completeOrder/Comple
 import GetCustomerOrdersRequest from "../../../contracts/orders/getOrders/GetCustomerOrdersRequest";
 import GetCustomerOrdersResponse from "../../../contracts/orders/getOrders/GetCustomerOrdersResponse";
 import { ToastrMessageEnum } from "../../../enums/toastrMessagEnum/ToastrMessageEnum";
+import handleFetchError from "../../../globalFetchError/GlobalFetchError";
 import { HttpServiceClient } from "../../HttpServiceClient";
 import { errorToastr, successToastr } from "../../ToastrServiceClient";
 
@@ -20,7 +21,7 @@ export default class OrderService{
         promiseData.then((data)=>{
             successToastr({content:ToastrMessageEnum.AddToOrderSuccess})
         }).catch((error)=>{         
-            errorToastr({content:ToastrMessageEnum.AddToOrderError})
+            handleFetchError(error)
         })
 
     }
@@ -39,7 +40,7 @@ export default class OrderService{
             
         } catch (error) {
 
-            errorToastr({content:ToastrMessageEnum.GetCustomerOrdersError})
+            handleFetchError(error)
 
             return new GetCustomerOrdersResponse()
             
@@ -57,7 +58,7 @@ export default class OrderService{
             successToastr({content:ToastrMessageEnum.CompleteOrderSuccess})
             
         } catch (error) {
-            errorToastr({content:ToastrMessageEnum.CompleteOrderError})
+            handleFetchError(error)
             
         }
     }
