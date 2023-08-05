@@ -22,6 +22,7 @@ import CustomPagination from "../pagination/CustomPagination";
 import GetAllCategoriesResponse from "../../contracts/categories/getAllCategories/GetAllCategoriesResponse";
 import CategoryService from "../../services/models/categories/CategoryService";
 import { Col, Container, Row } from "react-bootstrap";
+import ProductDTO from "../../contracts/products/ProductDTO";
 
 const CustomProductCard: React.FC = () => {
   const [activeFoodType, setActiveFoodType] = useState("all");
@@ -38,8 +39,8 @@ const CustomProductCard: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const maxSize: number = 12;
   const [currentCategory, setcurrentCategory] = useState("");
+  const productService: ProductService = new ProductService();
   const fetchData = async (page: number) => {
-    const productService: ProductService = new ProductService();
     loadingContextData.setLoadingProgress(true);
     let data: GetAllProductsResponse = await productService.getAllProducts({
       page: page - 1,
@@ -103,13 +104,27 @@ const CustomProductCard: React.FC = () => {
     };
   }, []);
 
-  const handleFoodTypeClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleFoodTypeClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
     const currCat = document.querySelector(".food-category button.active");
+
     currCat?.classList.remove("active");
     e.currentTarget.classList.add("active");
     setActiveFoodType(e.currentTarget.getAttribute("data-food-type") || "all");
 
     setcurrentCategory(e.currentTarget.getAttribute("data-category") || "");
+
+    let cId : string | any = e.currentTarget.getAttribute("data-category")
+
+    if(cId.length>0 && cId!=null)
+    {
+      let filteredData: ProductDTO[] = productResponse.products?.filter(p => p.categoryId === cId) as ProductDTO[]
+   
+      setProductResponse({products: filteredData, totalCount:filteredData.length})
+
+    }else{
+      await fetchData(currentPage)
+    }
+
   };
 
   const addBasketItem = async (
@@ -141,6 +156,7 @@ const CustomProductCard: React.FC = () => {
         {categoryResponse.map((item, index) => (
           <div key={index} className="play-on-scroll">
             <button
+              id={item.id}
               className={` ${
                 activeFoodType === item.translations[0].name ? "active" : ""
               }`}
@@ -158,18 +174,6 @@ const CustomProductCard: React.FC = () => {
       <Container>
         <div className="placeHolder">
           <Row>
-            {/* <Col className="customCol" xs={6} md={4} lg={3}>
-            <Card className="customCard">
-              <Card.Img variant="top" src={"https://images.deliveryhero.io/image/fd-tr/LH/r3qf-hero.jpg"} />
-              <Card.Body className="customCardBody">
-                <Card.Title className="customTitle">Lahmacun</Card.Title>
-                <Card.Text className="customText">
-                  Antep Lahmacun.
-                </Card.Text>
-                <Button className="customButton" variant="">Go somewhere</Button>
-              </Card.Body>
-            </Card>
-          </Col> */}
             {productResponse.products?.map((item, index) => (
               <Col key={index} className="customCol" xs={6} md={4} lg={3}>
                 <Card className="customCard">
