@@ -1,6 +1,7 @@
 import axios from "axios";
 import { errorToastr, infoToastr } from "../services/ToastrServiceClient";
 import { ToastrMessageEnum } from "../enums/toastrMessagEnum/ToastrMessageEnum";
+import Admin from "../constDatas/AdminConst";
 
 
 function navigateTo(path: string): void {
@@ -21,8 +22,10 @@ const handleFetchError = (error: any) => {
                 errorToastr({ content: "İşlem Başarısız." })
         }else if (error.response?.status.toString() === "401"){
             errorToastr({ content: "İlgili kısma erişmek için oturum açmanız gerekmektedir!!"})
+            Admin.isAdmin = false;
             navigateTo("http://localhost:3000/login")
         } else if(error.response?.status.toString() === "403"){
+            Admin.isAdmin = false;
             infoToastr({ content: "İlgili kısma erişmek için yetkiniz yoktur!! Daha yetkili bir hesaba geçiniz.", duration:5000})
         }
         else {

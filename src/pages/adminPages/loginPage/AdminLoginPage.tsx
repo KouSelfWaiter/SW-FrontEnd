@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import LoginService from '../../../services/models/login/LoginService';
 import LoginResponse from '../../../contracts/login/LoginResponse';
 import { useLoading } from '../../../contex/LoadingContext';
+import Admin from '../../../constDatas/AdminConst';
 
 interface IFormValues {
     email: string
@@ -31,11 +32,12 @@ function AdminLoginPage() {
         let response : LoginResponse=  await loginService.login({email:values.email, password:values.password}) as LoginResponse
         loadingDataContext.setLoadingProgress(false)
         formikHelper.resetForm()
-        console.log(response)
+      
         
         if(response){
             localStorage.setItem("accessToken", response.responseDto.data.accessToken);
             localStorage.setItem("refreshToken", response.responseDto.data.refreshToken);
+            Admin.isAdmin = true
             navigate("/")
         }
 

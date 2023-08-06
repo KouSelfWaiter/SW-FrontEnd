@@ -24,6 +24,7 @@ import AdminOrdersPage from "../../pages/adminPages/orders/AdminOrdersPage";
 import AdminDashboardPage from "../../pages/adminPages/dashboard/AdminDashboardPage";
 import "remixicon/fonts/remixicon.css";
 import AdminLoginPage from "../../pages/adminPages/loginPage/AdminLoginPage";
+import Admin from "../../constDatas/AdminConst";
 
 
 function CustomNavbar() {
@@ -84,14 +85,8 @@ function CustomNavbar() {
 
 
               {/* <Nav.Link disabled>Yakında Hizmetinizde</Nav.Link> */}
-
-              <Nav.Link><CustomLink to={"/admin/*"}>Admin</CustomLink></Nav.Link>
-              <Nav.Link><CustomLink to={"/login"}>Giriş</CustomLink></Nav.Link>
-
-
-              <Nav.Link>
-                <CustomLink to={"/admin/*"}>Admin</CustomLink>
-              </Nav.Link>
+              {Admin.isAdmin ? <Nav.Link><CustomLink to={"/admin/*"}>Admin</CustomLink></Nav.Link>: <Nav.Link><CustomLink to={"/login"}>Giriş</CustomLink></Nav.Link>}
+                   
             </Nav>
 
             <i
