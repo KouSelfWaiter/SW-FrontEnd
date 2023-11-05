@@ -49,6 +49,12 @@ export default class SignalRService{
     connection.on(procedureName, callBack)
   }
 
+  invoke = async (hubUrl: string , procedureName:string, message:string,  successCallback? : (value: any) => void, 
+  errorCallBacks? : (value:any) => void)=>{
+    const connection: HubConnection = await this.start(hubUrl, procedureName)
+    connection.invoke(procedureName, message).then(successCallback).catch(errorCallBacks);
+  }
+
 }
 
 
